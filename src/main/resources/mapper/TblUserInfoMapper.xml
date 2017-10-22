@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.teachereval.dao.TblUserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.example.teachereval.pojo.TblUserInfo">
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="claid" jdbcType="INTEGER" property="claid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="PASSWORD" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="roleDes" jdbcType="VARCHAR" property="roleDes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userid, claid, username, PASSWORD, roleid, roleName, roleDes
+  </sql>
+  <select id="selectByExample" parameterType="com.example.teachereval.pojo.TblUserInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.example.teachereval.pojo.TblUserInfo">
+    insert into userinfo (userid, claid, username, 
+      PASSWORD, roleid, roleName, 
+      roleDes)
+    values (#{userid,jdbcType=INTEGER}, #{claid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{PASSWORD,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, 
+      #{roleDes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.teachereval.pojo.TblUserInfo">
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="claid != null">
+        claid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="PASSWORD != null">
+        PASSWORD,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="roleName != null">
+        roleName,
+      </if>
+      <if test="roleDes != null">
+        roleDes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="claid != null">
+        #{claid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="PASSWORD != null">
+        #{PASSWORD,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDes != null">
+        #{roleDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.teachereval.pojo.TblUserInfoExample" resultType="java.lang.Integer">
+    select count(*) from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

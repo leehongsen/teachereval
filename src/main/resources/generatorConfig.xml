@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip"
+        /> -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/teachereval" userId="root"
+                        password="">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.example.teachereval.pojo"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.example.teachereval.dao"
+                             targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!--有多少張表重複多少次-->
+        <!--1-->
+        <table tableName="tel_class" domainObjectName="TblClass"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--2-->
+        <table tableName="tel_class_course" domainObjectName="TblClassCourse"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--3-->
+        <table tableName="tel_competence" domainObjectName="TblCompetence"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--4-->
+        <table tableName="tel_course" domainObjectName="TblCourse"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--5-->
+        <table tableName="tel_group" domainObjectName="TblGroup"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--6-->
+        <table tableName="tel_menu" domainObjectName="TblMenu"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--7-->
+        <table tableName="tel_role" domainObjectName="TblRole"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--8-->
+        <table tableName="tel_role_user" domainObjectName="TblRoleUser"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--9-->
+        <table tableName="tel_score" domainObjectName="TblScore"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--10-->
+        <table tableName="tel_teacher_class" domainObjectName="TblTeacherClass"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--11-->
+        <table tableName="tel_user" domainObjectName="TblUser"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--12-->
+        <table tableName="classvo" domainObjectName="TblClassVo"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--13-->
+        <table tableName="rolevo" domainObjectName="TblRoleVo"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--14-->
+        <table tableName="scorevo" domainObjectName="TblScoreVo"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--15-->
+        <table tableName="teacherinfo" domainObjectName="TblTeacherInfo"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <!--16-->
+        <table tableName="userinfo" domainObjectName="TblUserInfo"
+               enableCountByExample="true" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

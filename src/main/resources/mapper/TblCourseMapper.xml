@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.teachereval.dao.TblCourseMapper">
+  <resultMap id="BaseResultMap" type="com.example.teachereval.pojo.TblCourse">
+    <id column="couid" jdbcType="INTEGER" property="couid" />
+    <result column="groupid" jdbcType="INTEGER" property="groupid" />
+    <result column="couName" jdbcType="VARCHAR" property="couName" />
+    <result column="couSem" jdbcType="VARCHAR" property="couSem" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    couid, groupid, couName, couSem
+  </sql>
+  <select id="selectByExample" parameterType="com.example.teachereval.pojo.TblCourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tel_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tel_course
+    where couid = #{couid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tel_course
+    where couid = #{couid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.teachereval.pojo.TblCourse">
+    insert into tel_course (couid, groupid, couName, 
+      couSem)
+    values (#{couid,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, #{couName,jdbcType=VARCHAR}, 
+      #{couSem,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.teachereval.pojo.TblCourse">
+    insert into tel_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="couid != null">
+        couid,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="couName != null">
+        couName,
+      </if>
+      <if test="couSem != null">
+        couSem,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="couid != null">
+        #{couid,jdbcType=INTEGER},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="couName != null">
+        #{couName,jdbcType=VARCHAR},
+      </if>
+      <if test="couSem != null">
+        #{couSem,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.teachereval.pojo.TblCourseExample" resultType="java.lang.Integer">
+    select count(*) from tel_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.teachereval.pojo.TblCourse">
+    update tel_course
+    <set>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="couName != null">
+        couName = #{couName,jdbcType=VARCHAR},
+      </if>
+      <if test="couSem != null">
+        couSem = #{couSem,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where couid = #{couid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.teachereval.pojo.TblCourse">
+    update tel_course
+    set groupid = #{groupid,jdbcType=INTEGER},
+      couName = #{couName,jdbcType=VARCHAR},
+      couSem = #{couSem,jdbcType=VARCHAR}
+    where couid = #{couid,jdbcType=INTEGER}
+  </update>
+</mapper>
