@@ -3,6 +3,7 @@ package com.example.teachereval.service;
 import com.example.teachereval.dao.TblUserInfoMapper;
 import com.example.teachereval.dao.TblUserMapper;
 import com.example.teachereval.pojo.TblUser;
+import com.example.teachereval.pojo.TblUserExample;
 import com.example.teachereval.pojo.TblUserInfo;
 import com.example.teachereval.pojo.TblUserInfoExample;
 import com.github.pagehelper.PageHelper;
@@ -71,5 +72,21 @@ public class UserService extends BaseService<TblUser> {
         TblUserInfoExample.Criteria criteria=example.createCriteria();
         criteria.andUseridEqualTo(userInfo.getUserid());
         return userInfoMapper.selectByExample(example);
+    }
+
+    /**
+     *根据用户名查询用户
+     * @param username
+     * @return
+     */
+    public TblUser selectByUsername(String username){
+        TblUserExample example=new TblUserExample();
+        TblUserExample.Criteria criteria=example.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<TblUser> list=userMapper.selectByExample(example);
+        if(list!=null){
+            return list.get(0);
+        }
+        return null;
     }
 }

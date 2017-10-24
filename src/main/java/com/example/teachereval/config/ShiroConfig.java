@@ -1,9 +1,10 @@
 package com.example.teachereval.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-//import com.github.pagehelper.util.StringUtil;
-import com.study.service.ResourcesService;
-import com.study.shiro.MyShiroRealm;
+import com.example.teachereval.shiro.MyShiroRealm;
+import com.github.pagehelper.util.StringUtil;
+import com.example.teachereval.pojo.TblMenu;
+import com.example.teachereval.service.MenuService;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -26,7 +27,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     @Autowired(required = false)
-    private ResourcesService resourcesService;
+    private MenuService menuService;
 
     @Value("${spring.redis.host}")
     private String host;
@@ -86,12 +87,12 @@ public class ShiroConfig {
         //<!-- 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
         //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
         //自定义加载权限资源关系
-        List<Resources> resourcesList = resourcesService.queryAll();
-        for(Resources resources:resourcesList){
+        List<TblMenu> menulist = menuService.queryAll();
+        for(TblMenu menu:menulist){
 
-            if (StringUtil.isNotEmpty(resources.getResurl())) {
-                String permission = "perms[" + resources.getResurl()+ "]";
-                filterChainDefinitionMap.put(resources.getResurl(),permission);
+            if (StringUtil.isNotEmpty(menu.getMenUrl())) {
+                String permission = "perms[" + menu.getMenUrl()+ "]";
+                filterChainDefinitionMap.put(menu.getMenUrl(),permission);
             }
         }
         filterChainDefinitionMap.put("/**", "authc");
