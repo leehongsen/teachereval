@@ -5,12 +5,15 @@ import com.example.teachereval.dao.TblRoleVoMapper;
 import com.example.teachereval.dao.TblUserInfoMapper;
 import com.example.teachereval.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-
-public class MenuService extends BaseService<TblMenu> {
-    @Resource
+@Component
+@Service("menuService")
+public class MenuService implements IService<TblMenu> {
+    @Autowired
     private TblMenuMapper menuMapper;
     @Autowired
     private TblUserInfoMapper userInfoMapper;
@@ -60,7 +63,27 @@ public class MenuService extends BaseService<TblMenu> {
     }
 
     @Override
+    public Integer save(TblMenu tblMenu) {
+        return null;
+    }
+
+    @Override
+    public Integer delete(String[] ids) {
+        return null;
+    }
+
+    @Override
+    public Integer update(TblMenu tblMenu) {
+        return null;
+    }
+
+    @Override
     public Integer getTotal(Object obj) {
+        return null;
+    }
+
+    @Override
+    public Object getRecord(TblMenu tblMenu) {
         return null;
     }
 

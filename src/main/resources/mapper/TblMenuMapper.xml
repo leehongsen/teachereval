@@ -42,7 +42,8 @@
   <sql id="Base_Column_List">
     menid, menName, menDes, parMen, menCD, menUrl, sort
   </sql>
-  <select id="selectByExample" parameterType="com.example.teachereval.pojo.TblMenuExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.example.teachereval.pojo.TblMenuExample"
+          resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct

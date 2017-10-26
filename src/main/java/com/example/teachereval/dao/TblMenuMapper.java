@@ -2,6 +2,9 @@ package com.example.teachereval.dao;
 
 import com.example.teachereval.pojo.TblMenu;
 import com.example.teachereval.pojo.TblMenuExample;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 public interface TblMenuMapper {

@@ -9,18 +9,40 @@ import com.example.teachereval.pojo.TblUserInfoExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-
+@Component
 @Service("userService")
-public class UserService extends BaseService<TblUser> {
-    @Resource
+public class UserService implements IService<TblUser> {
+    @Autowired
     private TblUserMapper userMapper;
     @Autowired
     private TblUserInfoMapper userInfoMapper;
+
+    @Override
+    public Integer save(TblUser tblUser) {
+        return userMapper.insertSelective(tblUser);
+    }
+
+    @Override
+    public Integer delete(String[] ids) {
+        Integer r=1;
+        for (String a:ids){
+            int demo = userMapper.deleteByPrimaryKey(Integer.valueOf(a));
+            if(demo==0){
+                r=0;
+            }
+        }
+        return r;
+    }
+
+    @Override
+    public Integer update(TblUser tblUser) {
+        return userMapper.updateByPrimaryKeySelective(tblUser);
+    }
 
     /**
      * 获取列表
@@ -54,11 +76,17 @@ public class UserService extends BaseService<TblUser> {
     }
 
     /**
+     * 获取全部
      * @param obj
      * @return
      */
     @Override
     public Integer getTotal(Object obj) {
+        return null;
+    }
+
+    @Override
+    public Object getRecord(TblUser tblUser) {
         return null;
     }
 
@@ -84,7 +112,23 @@ public class UserService extends BaseService<TblUser> {
         TblUserExample.Criteria criteria=example.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<TblUser> list=userMapper.selectByExample(example);
-        if(list!=null){
+        if(list.size()!=0){
+            return list.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 登录
+     * @param user
+     * @return
+     */
+    public TblUser login(TblUser user) {
+        TblUserExample example=new TblUserExample();
+        TblUserExample.Criteria criteria=example.createCriteria();
+        criteria.andUsernameEqualTo(user.getUsername()).andPasswordEqualTo(user.getPassword());
+        List<TblUser> list=userMapper.selectByExample(example);
+        if (list.size()>0){
             return list.get(0);
         }
         return null;
