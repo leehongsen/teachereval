@@ -30,17 +30,20 @@ public class MenuService implements IService<TblMenu> {
      * @return
      */
     public List<TblMenu> loadUserResources(Map<String,Object> m){
+        //查询userid的相关信息，角色信息
         TblUserInfoExample example=new TblUserInfoExample();
         TblUserInfoExample.Criteria criteria=example.createCriteria();
         criteria.andUseridEqualTo((Integer) m.get("userid"));
         List<TblUserInfo> list=userInfoMapper.selectByExample(example);
         List<TblMenu> menulist=new ArrayList<TblMenu>();
         for(TblUserInfo user:list){
+            //通过用户信息查找到角色信息
             TblRoleVoExample example1=new TblRoleVoExample();
             TblRoleVoExample.Criteria Criteria1=example1.createCriteria();
             Criteria1.andRoleidEqualTo(user.getRoleid());
             List<TblRoleVo> rolevolist=roleVoMapper.selectByExample(example1);
             for(TblRoleVo role:rolevolist){
+                //添加到menu的list中
                 TblMenu menu=new TblMenu();
                 menu.setMenid(role.getMenid());
                 menu.setMenName(role.getMenName());
@@ -52,6 +55,7 @@ public class MenuService implements IService<TblMenu> {
                 menulist.add(menu);
             }
         }
+        //做去重复操作
         Set<TblMenu> set = new HashSet<TblMenu>();
         List<TblMenu> newList = new  ArrayList<>();
         for (TblMenu a:menulist) {
