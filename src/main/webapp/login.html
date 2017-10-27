@@ -40,12 +40,12 @@
         <div class="cont_img_back_"> <img src="po.jpg" alt="" /> </div>
         <div class="cont_form_login"> <a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
           <h2>登录</h2>
-          <form action="doLogin" method="post">
+          <form id="forLogin" method="post" action="doLogin">
             <input type="text" placeholder="用户名" id="loginUsername" name="username"/>
             <input type="password" placeholder="密码" id="loginPassword" name="password"/>
             <!--滑动验证-->
             <div id="drag"></div>
-            <button class="btn_login" onclick="login()">登录</button>
+            <button class="btn_login" onclick="return login()">登录</button>
           </form>
         </div>
         <div class="cont_form_sign_up"> <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
@@ -79,13 +79,14 @@
     }
 
     function login() {
-        if($("#drag").find(".drag_text").innerHTML=="验证通过"){
+        if($("#drag").find(".drag_text").text()!="验证通过"){
+            return false;
+        }else{
             return true;
         }
-        return false;
     }
 
-    function cambiar_sign_up(at) {
+    function cambiar_sign_up() {
         document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
         document.querySelector('.cont_form_sign_up').style.display = "block";
         document.querySelector('.cont_form_login').style.opacity = "0";

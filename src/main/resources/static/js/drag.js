@@ -50,7 +50,6 @@
         function dragOk(){
             handler.removeClass('handler_bg').addClass('handler_ok_bg');
             text.text('验证通过');
-            drag=true;
             drag.css({'color': '#fff'});
             handler.unbind('mousedown');
             $(document).unbind('mousemove');
