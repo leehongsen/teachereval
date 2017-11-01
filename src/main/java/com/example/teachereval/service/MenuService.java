@@ -29,11 +29,11 @@ public class MenuService implements IService<TblMenu> {
      * 根据用户查询角色，再查询权限
      * @return
      */
-    public List<TblMenu> loadUserResources(Map<String,Object> m){
+    public List<TblMenu> loadUserResources(TblUser m){
         //查询userid的相关信息，角色信息
         TblUserInfoExample example=new TblUserInfoExample();
         TblUserInfoExample.Criteria criteria=example.createCriteria();
-        criteria.andUseridEqualTo((Integer) m.get("userid"));
+        criteria.andUseridEqualTo(m.getUserid());
         List<TblUserInfo> list=userInfoMapper.selectByExample(example);
         List<TblMenu> menulist=new ArrayList<TblMenu>();
         for(TblUserInfo user:list){

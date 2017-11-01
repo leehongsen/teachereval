@@ -1,0 +1,38 @@
+<div class="bjui-pageContent">
+    <div class="bs-example">
+        <form action="../../json/ajaxDone.json" enctype="multipart/form-data" data-toggle="validate" data-close-current="true">
+            <div class="bjui-row col-1">
+                <label class="row-label">导入模板</label>
+                <div class="row-input">
+                    <a href="stuinfo/download" data-toggle="ajaxdownload">导入模板文件下载</a>
+                </div>
+                <label class="row-label">上传导入文件</label>
+                <div class="row-input"><input type="file" name="upfile" accept="application/vnd.ms-excel,.xlsx" data-rule=""></div>
+                <label class="row-label">数据开始行号</label>
+                <div class="row-input required"><input type="text" name="first" value="2" size="8" class="form-control" data-rule="required;digits"></div>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+<form action="../../json/ajaxDone.json" enctype="multipart/form-data" data-toggle="validate" data-close-current="true">
+    <div class="bjui-row col-1">
+        <label class="row-label">导入模板</label>
+        <div class="row-input">
+            <a href="stuinfo/download" data-toggle="ajaxdownload">导入模板文件下载</a>
+        </div>
+        <label class="row-label">上传导入文件</label>
+        <div class="row-input"><input type="file" name="upfile" accept="application/vnd.ms-excel,.xlsx" data-rule=""></div>
+        <label class="row-label">数据开始行号</label>
+        <div class="row-input required"><input type="text" name="first" value="2" size="8" class="form-control" data-rule="required;digits"></div>
+    </div>
+</form>
+        </pre>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

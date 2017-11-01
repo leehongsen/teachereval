@@ -1,0 +1,89 @@
+<script type="text/javascript">
+// Suggest JS API 调用
+$('#j_suggest2').suggest({
+    url   : 'json/suggest/list-#val#.json',
+    keys  : {code:'#code#', departname:'#name#'},
+    group : 'obj',
+    eventType: 'change'
+})
+</script>
+<div class="bjui-pageContent">
+    <div class="bs-example">
+        <div class="bjui-row col-2">
+            <label class="row-label">Suggest Data API</label>
+            <div class="row-input">
+                <input type="text" name="obj.suggest" value="" data-toggle="suggest" data-options="{
+                    url:'../../json/suggest/list-#val#.json',
+                    keys  : {code:'#code#', departname:'#name#'},
+                    group : 'obj',
+                    eventType: 'change'
+                }" placeholder="输入a或b再点下面的部门code或部门名称">
+            </div>
+            <label class="row-label">Suggest JS API</label>
+            <div class="row-input">
+                <select name="suggest2" id="j_suggest2" data-toggle="selectpicker">
+                    <option></option>
+                    <option value="a">a</option>
+                    <option value="b">b</option>
+                </select>
+            </div>
+            <label class="row-label">部门Code</label>
+            <div class="row-input">
+                <input type="text" name="obj.code" value="" placeholder="变更Suggest的值后点我">
+            </div>
+            <label class="row-label">部门名称</label>
+            <div class="row-input">
+                <input type="text" name="obj.departname" value="" placeholder="变更Suggest的值后点我">
+            </div>
+        </div>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+<div class="bjui-row col-2">
+    <label class="row-label">Suggest Data API</label>
+    <div class="row-input">
+        <input type="text" name="obj.suggest" value="" data-toggle="suggest" data-options="{
+            url:'../../json/suggest/list-#val#.json',
+            keys  : {code:'#code#', departname:'#name#'},
+            group : 'obj',
+            eventType: 'change'
+        }" placeholder="输入a或b再点下面的部门code或部门名称">
+    </div>
+    <label class="row-label">Suggest JS API</label>
+    <div class="row-input">
+        <select name="suggest2" id="j_suggest2" data-toggle="selectpicker">
+            <option></option>
+            <option value="a">a</option>
+            <option value="b">b</option>
+        </select>
+    </div>
+    <label class="row-label">部门Code</label>
+    <div class="row-input">
+        <input type="text" name="obj.code" value="" placeholder="变更Suggest的值后点我">
+    </div>
+    <label class="row-label">部门名称</label>
+    <div class="row-input">
+        <input type="text" name="obj.departname" value="" placeholder="变更Suggest的值后点我">
+    </div>
+</div>
+&lt;script type="text/javascript"&gt;
+// Suggest JS API 调用
+$('#j_suggest2').suggest({
+    url   : 'json/suggest/list-#val#.json',
+    keys  : {code:'#code#', departname:'#name#'},
+    group : 'obj',
+    eventType: 'change'
+})
+&lt;/script&gt;
+        </pre>
+    </div>
+    <div class="bs-callout bs-callout-warning">
+        <h4>Demo请求数据</h4>
+        <p>Suggest所用的数据在DEMO的目录位置： <code>/json/suggest/</code> 。</p>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

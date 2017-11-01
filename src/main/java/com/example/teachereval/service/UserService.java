@@ -50,11 +50,9 @@ public class UserService implements IService<TblUser> {
      * @return
      */
     @Override
-    public PageInfo<TblUserInfo> getList(Map<?, ?> m) {
+    public List<TblUserInfo> getList(Map<?, ?> m) {
         TblUserInfoExample example=new TblUserInfoExample();
         TblUserInfoExample.Criteria criteria=example.createCriteria();
-        int page=(Integer) m.get("page");
-        int limit=(Integer) m.get("limit");
         if(m.get("search")!=null){
             TblUserInfo user=(TblUserInfo) m.get("");
             if(user.getClaid()!=null){
@@ -70,9 +68,8 @@ public class UserService implements IService<TblUser> {
                 criteria.andUseridEqualTo(user.getUserid());
             }
         }
-        PageHelper.startPage(page,limit);
-        List<TblUserInfo> List=userInfoMapper.selectByExample(example);
-        return new PageInfo<>(List);
+        List<TblUserInfo> list=userInfoMapper.selectByExample(example);
+        return list;
     }
 
     /**

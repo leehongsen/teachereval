@@ -1,0 +1,147 @@
+<script type="text/javascript">
+// FindGrid JS API 调用
+function findgrid_test(obj) {
+    BJUI.findgrid({
+        group: 'obj',
+        include: 'name3:name, description:desc',
+        dialogOptions: {title:'查找职业'},
+        gridOptions: {
+            local: 'local',
+            dataUrl: '../../json/datagrid/profession.json',
+            columns: [
+                {name:'name', label:'名称', width:100},
+                {name:'desc', label:'描述'},
+                {name:'date', label:'创建日期'}
+            ]
+        }
+    })
+}
+</script>
+<div class="bjui-pageContent">
+    <div class="bs-example">
+        <div class="bjui-row col-2">
+            <label class="row-label">FindGrid Data API1</label>
+            <div class="row-input">
+                <input type="text" name="obj.name" value="" data-toggle="findgrid" data-options="{
+                    group: 'obj',
+                    include: 'name, description:desc',
+                    dialogOptions: {title:'查找职业'},
+                    gridOptions: {
+                        local: 'local',
+                        dataUrl: '../../json/datagrid/profession.json',
+                        columns: [
+                            {name:'name', label:'名称', width:100},
+                            {name:'desc', label:'描述'},
+                            {name:'date', label:'创建日期'}
+                        ]
+                    }
+                }" placeholder="点放大镜按钮查找">
+            </div>
+            <label class="row-label">职业描述</label>
+            <div class="row-input">
+                <input type="text" name="obj.description" value="" placeholder="查找职业后自动填充">
+            </div>
+            <label class="row-label">FindGrid Data API2</label>
+            <div class="row-input">
+                <input type="text" name="obj.name2" size="20">
+                <a href="javascript:;" data-toggle="findgridbtn" data-options="{
+                    group: 'obj',
+                    include: 'name2:name, description:desc',
+                    dialogOptions: {title:'查找职业'},
+                    gridOptions: {
+                        local: 'local',
+                        dataUrl: '../../json/datagrid/profession.json',
+                        columns: [
+                            {name:'name', label:'名称', width:100},
+                            {name:'desc', label:'描述'},
+                            {name:'date', label:'创建日期'}
+                        ]
+                    }
+                }">点我查找职业</a>
+            </div>
+            <label class="row-label">FindGrid JS API</label>
+            <div class="row-input">
+                <input type="text" name="obj.name3" size="20">
+                <a href="javascript:;" onclick="findgrid_test(this);">点我查找职业</a>
+            </div>
+        </div>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+<div class="bjui-row col-2">
+    <label class="row-label">FindGrid Data API1</label>
+    <div class="row-input">
+        <input type="text" name="obj.name" value="" data-toggle="findgrid" data-options="{
+            group: 'obj',
+            include: 'name, description:desc',
+            dialogOptions: {title:'查找职业'},
+            gridOptions: {
+                local: 'local',
+                dataUrl: '../../json/datagrid/profession.json',
+                columns: [
+                    {name:'name', label:'名称', width:100},
+                    {name:'desc', label:'描述'},
+                    {name:'date', label:'创建日期'}
+                ]
+            }
+        }" placeholder="点放大镜按钮查找">
+    </div>
+    <label class="row-label">职业描述</label>
+    <div class="row-input">
+        <input type="text" name="obj.description" value="" placeholder="查找职业后自动填充">
+    </div>
+    <label class="row-label">FindGrid Data API2</label>
+    <div class="row-input">
+        <input type="text" name="obj.name2" size="20">
+        <a href="javascript:;" data-toggle="findgridbtn" data-options="{
+            group: 'obj',
+            include: 'name2:name, description:desc',
+            dialogOptions: {title:'查找职业'},
+            gridOptions: {
+                local: 'local',
+                dataUrl: '../../json/datagrid/profession.json',
+                columns: [
+                    {name:'name', label:'名称', width:100},
+                    {name:'desc', label:'描述'},
+                    {name:'date', label:'创建日期'}
+                ]
+            }
+        }">点我查找职业</a>
+    </div>
+    <label class="row-label">FindGrid JS API</label>
+    <div class="row-input">
+        <input type="text" name="obj.name3" size="20">
+        <a href="javascript:;" onclick="findgrid_test(this);">点我查找职业</a>
+    </div>
+</div>
+&lt;script type="text/javascript"&gt;
+// FindGrid JS API 调用
+function findgrid_test(obj) {
+    BJUI.findgrid({
+        group: 'obj',
+        include: 'name3:name, description:desc',
+        dialogOptions: {title:'查找职业'},
+        gridOptions: {
+            local: 'local',
+            dataUrl: '../../json/datagrid/profession.json',
+            columns: [
+                {name:'name', label:'名称', width:100},
+                {name:'desc', label:'描述'},
+                {name:'date', label:'创建日期'}
+            ]
+        }
+    })
+}
+&lt;/script&gt;
+        </pre>
+    </div>
+    <div class="bs-callout bs-callout-warning">
+        <h4>Demo请求数据</h4>
+        <p>FindGrid所用的数据在DEMO的目录位置： <code>/json/datagrid/profession.json</code> 。</p>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

@@ -1,0 +1,63 @@
+<div class="bjui-pageHeader" style="background-color:#fefefe; border-bottom:none;">
+<form data-toggle="ajaxsearch" data-options="{searchDatagrid:$.CurrentNavtab.find('#datagrid-test-filter')}">
+    <fieldset>
+        <legend style="font-weight:normal;">页头搜索：</legend>
+        <div style="margin:0; padding:1px 5px 5px;">
+            <span>门诊号：</span>
+            <input type="text" name="obj.code" class="form-control" size="15">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>姓名：</span>
+            <input type="text" name="obj.name" class="form-control" size="15">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="btn-group">
+                <button type="submit" class="btn-green" data-icon="search">开始搜索！</button>
+                <button type="reset" class="btn-orange" data-icon="times">重置</button>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn-blue" data-toggle="dialog" data-options="{url:'../../html/datagrid/datagrid-search-source.html', id:'dialog-datagrid-search', width:1000, height:600, title:'查看Datagrid示例- 页头搜索、自定义编辑 - 源码'}">点击查看示例源码</button>
+        </div>
+    </fieldset>
+</form>
+</div>
+<div class="bjui-pageContent">
+    <table class="table table-bordered" id="datagrid-test-filter" data-toggle="datagrid" data-options="{
+        height: '100%',
+        gridTitle : 'datagrid 页头搜索、自定义编辑示例',
+        showToolbar: true,
+        toolbarItem: 'add,edit,del,|,import,export,exportf',
+        dataUrl: 'http://b-jui.com/demo?callback=?',
+        dataType: 'jsonp',
+        jsonPrefix: 'obj',
+        editMode: {dialog:{width:'800',height:500,title:'编辑挂号信息',mask:true}},
+        editUrl: '../../html/datagrid/datagrid-edit.html?code={code}',
+        paging: {pageSize:60},
+        showCheckboxcol: true,
+        linenumberAll: true,
+        importOption: {type:'dialog', options:{url:'../../html/datagrid/datagrid-import.html', width:500, height:300, title:'导入挂号信息'}},
+        exportOption: {type:'file', options:{url:'http://b-jui.com/demo/export', loadingmask:true}}
+    }">
+        <thead>
+            <tr>
+                <th rowspan="2" data-options="{name:'code',align:'center',width:70}">门诊号</th>
+                <th colspan="5" align="center">挂号信息</th>
+                <th colspan="3" align="center">病人信息</th>
+                <th colspan="3" align="center">就诊信息</th>
+                <th rowspan="2" data-options="{name:'opercode',align:'center'}">操作员编号</th>
+                <th rowspan="2" data-options="{name:'operdate',align:'center',type:'date',pattern:'yyyy-MM-dd HH:mm:ss'}">操作时间</th>
+            </tr>
+            <tr>
+                <th data-options="{name:'regdate',align:'center',type:'date',pattern:'yyyy-MM-dd HH:mm',render:function(value){return value?value.substr(0,16):value}}">挂号日期</th>
+                <th data-options="{name:'order',align:'center',width:50}">当日序号</th>
+                <th data-options="{name:'regname'}">挂号类别</th>
+                <th data-options="{name:'deptcode',type:'select',items:function(){return $.getJSON('http://b-jui.com/demo/listDepart?callback=?')},itemattr:{value:'deptcode',label:'deptname'}}">科室</th>
+                <th data-options="{name:'regfee',align:'center',width:60}">挂号费</th>
+                <th data-options="{name:'name',align:'center',width:70}">姓名</th>
+                <th data-options="{name:'sex',align:'center',width:45,type:'select',items:[{'true':'男'},{'false':'女'}]}">性别</th>
+                <th data-options="{name:'age',align:'center',type:'number',width:45,render:function(value){return 2015-parseInt(value)}}">年龄</th>
+                <th data-options="{name:'fr',align:'center',width:70,type:'boolean',render:function(value){return value ? '√' : '×'}}">是否初诊</th>
+                <th data-options="{name:'see',align:'center',width:55,type:'boolean',render:function(value){return value ? '√' : '×'}}">已就诊</th>
+                <th data-options="{name:'seedate',align:'center',type:'date',pattern:'yyyy-MM-dd HH:mm:ss'}">就诊时间</th>
+            </tr>
+        </thead>
+    </table>
+</div>

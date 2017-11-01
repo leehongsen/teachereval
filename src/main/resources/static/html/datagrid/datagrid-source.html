@@ -1,0 +1,130 @@
+<div class="bjui-pageContent">
+    <div class="highlight">
+        <pre class="prettyprint">
+&lt;script type="text/javascript"&gt;
+$('#j_datagrid').datagrid({
+    height: '100%',
+    tableWidth:'100%',
+    gridTitle : 'datagrid 完整示例 - JS API',
+    showToolbar: true,
+    toolbarItem: 'all',
+    local: 'local',
+    dataUrl: '../../json/datagrid/datagrid.json',
+    columns: [
+        {
+            name: 'code',
+            label: '门诊号',
+            align: 'center',
+            width: 70
+        },
+        {
+            label: '挂号信息',
+            columns: [{
+                name: 'regdate',
+                label: '挂号日期',
+                align: 'center',
+                type: 'date',
+                pattern: 'yyyy-MM-dd HH:mm:ss',
+                render: function(value) {
+                    return value ? value.substr(0, 16) : value
+                }
+            },
+            {
+                name: 'order',
+                label: '当日序号',
+                align: 'center',
+                width: 50
+            },
+            {
+                name: 'regname',
+                label: '挂号类别'
+            },
+            {
+                name: 'deptname',
+                label: '科室名称'
+            },
+            {
+                name: 'regfee',
+                label: '挂号费',
+                align: 'center',
+                width: 60
+            }]
+        },
+        {
+            label: '病人信息',
+            columns: [{
+                name: 'name',
+                label: '姓名',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'sex',
+                label: '性别',
+                align: 'center',
+                width: 45,
+                render: function(value) {
+                    return String(value) == 'true' ? '男' : '女'
+                }
+            },
+            {
+                name: 'age',
+                label: '年龄',
+                align: 'center',
+                type: 'number',
+                width: 45,
+                render: function(value) {
+                    return 2015 - parseInt(value)
+                }
+            }]
+        },
+        {
+            label: '就诊信息',
+            columns: [{
+                name: 'fr',
+                label: '是否初诊',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'see',
+                label: '已就诊',
+                align: 'center',
+                width: 55
+            },
+            {
+                name: 'seedate',
+                label: '就诊时间',
+                align: 'center',
+                type: 'date',
+                pattern: 'yyyy-MM-dd HH:mm:ss'
+            }]
+        },
+        {
+            name: 'opercode',
+            label: '操作员编号',
+            align: 'center'
+        },
+        {
+            name: 'operdate',
+            label: '操作时间',
+            align: 'center',
+            type: 'date',
+            pattern: 'yyyy-MM-dd HH:mm:ss'
+        }
+    ],
+    editUrl: 'ajaxDone1.html',
+    paging: {pageSize:50, pageCurrent:10},
+    linenumberAll: true
+})
+&lt;/script&gt;
+<table id="j_datagrid" class="table table-bordered">
+</table>
+        </pre>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

@@ -1,5 +1,7 @@
 package com.example.teachereval.pojo;
 
+import java.util.List;
+
 public class TblMenu {
     private Integer menid;
 
@@ -14,6 +16,8 @@ public class TblMenu {
     private String menUrl;
 
     private Integer sort;
+
+    private List<TblMenu> childMenus;
 
     public Integer getMenid() {
         return menid;
@@ -69,5 +73,13 @@ public class TblMenu {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public List<TblMenu> getChildMenus() {
+        return childMenus;
+    }
+
+    public void setChildMenus(List<TblMenu> childMenus) {
+        this.childMenus = childMenus;
     }
 }

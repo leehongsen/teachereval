@@ -1,0 +1,40 @@
+<script type="text/javascript">
+$('#j_form_datepicker').datepicker({pattern:'dd/MM/yyyy', minDate:'2016-10-01'})
+</script>
+<div class="bjui-pageContent">
+    <div class="bs-example">
+        <div class="bjui-row col-2">
+            <label class="row-label">Tags</label>
+            <div class="row-input">
+                <input type="text" name="tags" value="" data-toggle="tags" data-url="../../json/tags/tags.json" data-width="100%" size="20" placeholder="输入关键字，回车提交">
+            </div>
+            <label class="row-label">自动完成</label>
+            <div class="row-input">
+                <input type="text" name="tags2" value="" data-toggle="tags" data-options="{url:'../../json/tags/tags.json', istag:false}" placeholder="输入关键字">
+            </div>
+        </div>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+<div class="bjui-row col-2">
+    <label class="row-label">Tags</label>
+    <div class="row-input">
+        <input type="text" name="tags" value="" data-toggle="tags" data-url="../../json/tags/tags.json" data-width="100%" size="20" placeholder="输入关键字，回车提交">
+    </div>
+    <label class="row-label">自动完成</label>
+    <div class="row-input">
+        <input type="text" name="tags2" value="" data-toggle="tags" data-options="{url:'../../json/tags/tags.json', istag:false}" placeholder="输入关键字">
+    </div>
+</div>
+        </pre>
+    </div>
+    <div class="bs-callout bs-callout-warning">
+        <h4>特别说明</h4>
+        <p>Tags或自动完成均通过url与服务端交互来获取数据，并没有实现本地筛选功能。</p>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>
