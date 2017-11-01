@@ -18,25 +18,27 @@
                 name: 'username',
                 label: '用户名',
                 align: 'center',
+                width:70
             },
             {
                 name: 'roleName',
                 label: '所属角色',
                 align: 'center',
+                width:70
             },
             {
                 name: 'roleDes',
                 label: '描述',
                 align: 'center',
+                width:80
             }
         ],
         editUrl: host+'/user/editUser',
-
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
         tableWidth:'100%',
         noremove: false,
-        delUrl: host+'/user/editUser',
+        delUrl: host+'/user/delete',
         delPK:'userid',
         delConfirm:'是否删除该用户？'
     })
@@ -44,7 +46,9 @@
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">
         <h4>Datagrid - JS API 示例说明</h4>
-        <p>这是一个满屏的datagrid示例，通过JS API调用。数据文件位置： <code>/json/datagrid/datagrid.json</code> 。<a href="html/datagrid/datagrid-source.html" data-toggle="dialog" data-options="{id:'dialog-datagrid-source-js', width:1000, height:600, title:'查看Datagrid示例 - JS API - 源码'}">点击查看示例源码</a></p>
+        <p>这是一个满屏的datagrid示例，通过JS API调用。数据文件位置：
+            <code>/json/datagrid/datagrid.json</code> 。
+            <a href="html/datagrid/datagrid-source.html" data-toggle="dialog" data-options="{id:'dialog-datagrid-source-js', width:1000, height:600, title:'查看Datagrid示例 - JS API - 源码'}">点击查看示例源码</a></p>
     </div>
 </div>
 <div class="bjui-pageContent">

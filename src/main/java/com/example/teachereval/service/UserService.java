@@ -53,8 +53,8 @@ public class UserService implements IService<TblUser> {
     public List<TblUserInfo> getList(Map<?, ?> m) {
         TblUserInfoExample example=new TblUserInfoExample();
         TblUserInfoExample.Criteria criteria=example.createCriteria();
-        if(m.get("search")!=null){
-            TblUserInfo user=(TblUserInfo) m.get("");
+        if(null!=m.get("search")){
+            TblUserInfo user=(TblUserInfo) m.get("search");
             if(user.getClaid()!=null){
                 criteria.andUseridEqualTo(user.getClaid());
             }

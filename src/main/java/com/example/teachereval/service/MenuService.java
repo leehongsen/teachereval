@@ -13,6 +13,9 @@ import java.util.*;
 @Component
 @Service("menuService")
 public class MenuService implements IService<TblMenu> {
+    /**
+     *
+     */
     @Autowired
     private TblMenuMapper menuMapper;
     @Autowired
@@ -21,8 +24,17 @@ public class MenuService implements IService<TblMenu> {
     private TblRoleVoMapper roleVoMapper;
 
     @Override
-    public Object getList(Map m) {
-        return null;
+    public List<TblMenu> getList(Map m) {
+        TblMenuExample example=new TblMenuExample();
+        TblMenuExample.Criteria criteria=example.createCriteria();
+        if(null!=m.get("search")){
+            TblMenu menu=(TblMenu) m.get("search");
+            if(menu.getMenName()!=null){
+                criteria.andMenNameLike("%"+menu.getMenName()+"%");
+            }
+        }
+        List<TblMenu> list=menuMapper.selectByExample(example);
+        return list;
     }
 
     /**
@@ -68,17 +80,24 @@ public class MenuService implements IService<TblMenu> {
 
     @Override
     public Integer save(TblMenu tblMenu) {
-        return null;
+        return menuMapper.insertSelective(tblMenu);
     }
 
     @Override
     public Integer delete(String[] ids) {
-        return null;
+        Integer r=1;
+        for (String a:ids){
+            int demo = menuMapper.deleteByPrimaryKey(Integer.valueOf(a));
+            if(demo==0){
+                r=0;
+            }
+        }
+        return r;
     }
 
     @Override
     public Integer update(TblMenu tblMenu) {
-        return null;
+        return menuMapper.updateByPrimaryKeySelective(tblMenu);
     }
 
     @Override
