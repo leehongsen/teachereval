@@ -1,0 +1,9 @@
+[
+    {"name":"基础组件", "children":[
+        {"id":"base-navtab", "name":"Navtab", "target":"navtab", "url":"html/base/navtab.html"},
+        {"id":"base-dialog", "name":"Dialog弹窗", "target":"navtab", "url":"html/base/dialog.html"},
+        {"id":"base-alertmsg", "name":"alertmsg消息窗口", "target":"navtab", "url":"html/base/alertmsg.html"},
+        {"id":"base-ajax", "name":"ajax相关", "target":"navtab", "url":"html/base/ajax.html"},
+        {"id":"base-pagination", "name":"分页组件", "target":"navtab", "url":"html/base/pagination.html"}
+    ]}
+]

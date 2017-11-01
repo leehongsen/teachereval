@@ -1,0 +1,9 @@
+[
+    {"name":"Datagrid", "children":[
+        {"id":"datagrid-jquery", "name":"示例-jQuery API", "target":"navtab", "url":"html/datagrid/datagrid.html"},
+        {"id":"datagrid-data", "name":"示例-Data API", "target":"navtab", "url":"html/datagrid/datagrid-dom.html"},
+        {"id":"datagrid-tree", "name":"树状Datagrid", "target":"navtab", "url":"html/datagrid/datagrid-tree.html"},
+        {"id":"datagrid-search", "name":"搜索Datagrid", "target":"navtab", "url":"html/datagrid/datagrid-search.html"},
+        {"id":"datagrid-template", "name":"Datagrid模板显示", "target":"navtab", "url":"html/datagrid/datagrid-template.html"}
+    ]}
+]
