@@ -33,7 +33,8 @@ public class UserAction {
     @RequestMapping("/editUser")
     public TblUser editUser(@Param("json") String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
-        if(jsonArray.getJSONObject(0).has("userid")){
+        Object o=jsonArray.getJSONObject(0).get("userid");
+        if(o.hashCode()!=0){
             TblUser user=new TblUser();
             user.setUserid((int)jsonArray.getJSONObject(0).get("userid"));
             user.setUsername((String)jsonArray.getJSONObject(0).get("username"));
@@ -45,7 +46,6 @@ public class UserAction {
             add(user);
             return user;
         }
-
     }
 
     @RequestMapping("/delete")

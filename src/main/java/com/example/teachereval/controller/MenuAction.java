@@ -1,5 +1,6 @@
 package com.example.teachereval.controller;
 
+import com.example.teachereval.pojo.MenuJson;
 import com.example.teachereval.pojo.TblMenu;
 import com.example.teachereval.service.MenuService;
 import org.apache.ibatis.annotations.Param;
@@ -29,28 +30,56 @@ public class MenuAction {
         return pageInfo;
     }
 
+    @RequestMapping("/getAll")
+    public List<MenuJson> getAll(){
+        return menuService.getAll();
+    }
+
     @RequestMapping("/editMenu")
     public TblMenu editMenu(@Param("json") String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
-        if(jsonArray.getJSONObject(0).has("menid")){
-            TblMenu menu=new TblMenu();
-            menu.setMenid((int)jsonArray.getJSONObject(0).get("menid"));
-            menu.setMenName((String)jsonArray.getJSONObject(0).get("menName"));
-            menu.setMenDes((String)jsonArray.getJSONObject(0).get("menDes"));
-            menu.setParMen((int)jsonArray.getJSONObject(0).get("parMen"));
-            menu.setMenUrl((String)jsonArray.getJSONObject(0).get("menUrl"));
-            menu.setSort((int)jsonArray.getJSONObject(0).get("sort"));
+        Object o=jsonArray.getJSONObject(0).get("id");
+        TblMenu menu=new TblMenu();
+        String pidString=(String)jsonArray.getJSONObject(0).get("pid");
+        String pid=pidString.split("m")[1];
+        Object b=jsonArray.getJSONObject(0).get("url");
+        if(b.toString()!="null"){
+            menu.setMenUrl((String)jsonArray.getJSONObject(0).get("url"));
+        }
+        if(o.hashCode()!=0){
+            String idString=(String)jsonArray.getJSONObject(0).get("id");
+            String id=idString.split("m")[1];
+            menu.setMenid(Integer.valueOf(id));
+            menu.setParMen(Integer.valueOf(pid));
+            menu.setMenName((String)jsonArray.getJSONObject(0).get("name"));
             edit(menu);
             return menu;
         }else{
-            TblMenu menu=new TblMenu();
-            menu.setMenName((String)jsonArray.getJSONObject(0).get("menName"));
-            menu.setMenDes((String)jsonArray.getJSONObject(0).get("menDes"));
-            menu.setParMen((int)jsonArray.getJSONObject(0).get("parMen"));
-            menu.setMenUrl((String)jsonArray.getJSONObject(0).get("menUrl"));
-            menu.setSort((int)jsonArray.getJSONObject(0).get("sort"));
+            menu.setParMen(Integer.valueOf(pid));
+            menu.setMenName((String)jsonArray.getJSONObject(0).get("name"));
             add(menu);
             return menu;
+        }
+    }
+
+    @RequestMapping("/modify")
+    public void modify(@Param("json") String json) throws JSONException {
+        JSONArray jsonArray = new JSONArray(json);
+        for(int i=0;i<jsonArray.length();i++){
+            TblMenu menu=new TblMenu();
+            String idString=(String)jsonArray.getJSONObject(i).get("id");
+            String id=idString.split("m")[1];
+            String pidString=(String)jsonArray.getJSONObject(i).get("pid");
+            String pid=pidString.split("m")[1];
+            menu.setMenid(Integer.valueOf(id));
+            menu.setParMen(Integer.valueOf(pid));
+            Object o=jsonArray.getJSONObject(i).get("url");
+            if(o.toString()!="null"){
+                menu.setMenUrl((String)jsonArray.getJSONObject(i).get("url"));
+            }
+            menu.setSort((int)jsonArray.getJSONObject(i).get("order"));
+            menu.setMenName((String)jsonArray.getJSONObject(i).get("name"));
+            edit(menu);
         }
     }
 

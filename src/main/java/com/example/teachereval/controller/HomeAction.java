@@ -97,7 +97,6 @@ public class HomeAction {
                 getTotalMenu.add(rootMenu.get(i));
             }
         }
-
         return getTotalMenu;
     }
 
@@ -148,13 +147,16 @@ public class HomeAction {
         }else{
             return null;
         }
-
         return childList;
     }
 
     //控制跳转
     @RequestMapping("/toMenu")
-    public String toMenu(){ return "login";}
+    public String toMenu(){ return "view/MenuTable";}
     @RequestMapping("/toUser")
     public String toUser(){ return "view/UserTable";}
+    @RequestMapping("/toRole")
+    public String toRole(){ return "view/RoleTable";}
+    @RequestMapping("/toCourse")
+    public String toCourse(){ return "view/CourseTable";}
 }

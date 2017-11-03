@@ -37,6 +37,25 @@ public class MenuService implements IService<TblMenu> {
         return list;
     }
 
+    public List<MenuJson> getAll(){
+        TblMenuExample example=new TblMenuExample();
+        List<TblMenu> list=menuMapper.selectByExample(example);
+        List<MenuJson> target=new ArrayList<>();
+        for(TblMenu a:list){
+            MenuJson mj=new MenuJson();
+            if(a.getParMen()!=0){
+                mj.setPid(a.getParMen());
+            }
+            mj.setId(a.getMenid());
+            mj.setName(a.getMenName());
+            mj.setUrl(a.getMenUrl());
+            target.add(mj);
+        }
+        return target;
+    }
+
+
+
     /**
      * 根据用户查询角色，再查询权限
      * @return
