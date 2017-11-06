@@ -39,7 +39,7 @@ public class ClassService implements IService<TblClass> {
     }
 
     @Override
-    public Object getList(Map<?, ?> m) {
+    public List<TblClass> getList(Map<?, ?> m) {
         TblClassExample example=new TblClassExample();
         TblClassExample.Criteria criteria=example.createCriteria();
         if(null!=m.get("search")){

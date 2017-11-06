@@ -1,0 +1,43 @@
+<script type="text/javascript">
+    var host=getContextPath();
+    $('#class_datagrid').datagrid({
+        height: '100%',
+        gridTitle : '班级信息管理',
+        showToolbar: true,
+        toolbarItem: 'all',
+        local: 'local',
+        dataUrl: host+'/class/getList',
+        columns: [
+            {
+                name: 'claid',
+                label: '班级id',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'claName',
+                label: '班级名称',
+                align: 'center',
+                width:300
+            }
+        ],
+        editUrl: host+'/class/editClass',
+        paging: {pageSize:50, pageCurrent:10},
+        linenumberAll: true,
+        /*tableWidth:'100%',*/
+        noremove: false,
+        delUrl: host+'/class/delete',
+        delPK:'claid',
+        delConfirm:'是否删除该用户？'
+    })
+</script>
+<div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
+    <div class="bs-callout bs-callout-warning">
+        <h4>班级信息</h4>
+        <p>满屏的班级信息。</p>
+    </div>
+</div>
+<div class="bjui-pageContent">
+    <table id="class_datagrid" class="table table-bordered">
+    </table>
+</div>

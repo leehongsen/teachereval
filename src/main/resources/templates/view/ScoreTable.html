@@ -1,0 +1,73 @@
+<script type="text/javascript">
+    var host=getContextPath();
+    $('#score_datagrid').datagrid({
+        height: '100%',
+        gridTitle : '分数管理',
+        showToolbar: true,
+        toolbarItem: 'all',
+        local: 'local',
+        dataUrl: host+'/score/getList',
+        columns: [
+            {
+                name: 'scoid',
+                label: '分数id',
+                align: 'center',
+                width: 70
+            },
+            {
+                name: 'username',
+                label: '用户名',
+                align: 'center',
+                width:300
+            },
+            {
+                name: 'userid',
+                label: '用户id',
+                align: 'center',
+                width:300
+            },
+            {
+                name: 'claName',
+                label: '班级',
+                align: 'center',
+                width:80
+            },
+            {
+                name: 'claid',
+                label: '班级id',
+                align: 'center',
+                width:80
+            },
+            {
+                name: 'couName',
+                label: '课程名称',
+                align: 'center',
+                width:80
+            },
+            {
+                name: 'Score',
+                label: '分数',
+                align: 'center',
+                width:80
+            }
+        ],
+        editUrl: host+'/score/editUser',
+        paging: {pageSize:50, pageCurrent:10},
+        linenumberAll: true,
+        /*tableWidth:'100%',*/
+        noremove: false,
+        delUrl: host+'/score/delete',
+        delPK:'scoid',
+        delConfirm:'是否删除该用户？'
+    })
+</script>
+<div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
+    <div class="bs-callout bs-callout-warning">
+        <h4>分数信息</h4>
+        <p>满屏的分数信息。</p>
+    </div>
+</div>
+<div class="bjui-pageContent">
+    <table id="score_datagrid" class="table table-bordered">
+    </table>
+</div>
