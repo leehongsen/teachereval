@@ -1,5 +1,37 @@
 <script type="text/javascript">
     var host=getContextPath();
+    function datagrid_tree_operation() {
+        var html = '<button type="button" class="btn-green" data-toggle="edit.datagrid.tr">编辑</button>'
+            + '<button type="button" class="btn-red" data-toggle="del.datagrid.tr">删除</button>'
+            +'<button type="button" class="btn-blue" onclick="dialog_role();">赋予权限</button>'
+        return html
+    }
+    function dialog_role() {
+        var roleid=$("#role_datagrid").data('selectedDatas')[0].roleid;
+        var roleName=$("#role_datagrid").data('selectedDatas')[0].roleName;
+        var ztree="";
+        $.ajax({
+            url:host+'/role/getAllMenu',
+            async:false,
+            success:function (json) {
+                var a=JSON.stringify(json);
+                ztree+="<div class=\"bjui-pageContent\">" +
+                    "<ul id=\'ztree-Menu\' style=\'display: none\' class=\'ztree\' data-toggle=\'ztree\' " +
+                    "data-nodes=\'"+a+"\' data-check-enable=\'true\'></ul></div>\n"+
+                    "<div class=\"bjui-pageFooter\"><ul>\n" +
+                    "<li><button type=\"button\" onclick=\"saveFun();\" class=\"btn-blue\" data-icon=\"hand-o-right \">确定</button></li>\n"+
+                    "    </ul></div>\n";
+
+            }
+        });
+        console.log(ztree);
+        BJUI.dialog({
+            id:'test_dialog4',
+            html:ztree,
+            title:'设置功能'
+        })
+    }
+    
     $('#role_datagrid').datagrid({
         height: '100%',
         gridTitle : '角色信息管理',
@@ -25,6 +57,10 @@
                 label: '角色描述',
                 align: 'center',
                 width:300
+            },
+            {
+                label:'操作',
+                render:datagrid_tree_operation
             }
         ],
         editUrl: host+'/role/editUser',
