@@ -5,6 +5,7 @@ import com.example.teachereval.dao.TblRoleVoMapper;
 import com.example.teachereval.pojo.TblRole;
 import com.example.teachereval.pojo.TblRoleExample;
 import com.example.teachereval.pojo.TblRoleVo;
+import com.example.teachereval.pojo.TblRoleVoExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ import java.util.Map;
 public class RoleService implements IService<TblRole> {
     @Autowired
     private TblRoleMapper roleMapper;
-    /*@Autowired
-    private TblRoleVoMapper roleVoMapper;*/
+    @Autowired
+    private TblRoleVoMapper roleVoMapper;
 
     @Override
     public Integer save(TblRole tblRole) {
@@ -35,6 +36,14 @@ public class RoleService implements IService<TblRole> {
             }
         }
         return r;
+    }
+
+    public List<TblRoleVo> getRoleMenu(int roleid){
+        TblRoleVoExample example=new TblRoleVoExample();
+        TblRoleVoExample.Criteria criteria=example.createCriteria();
+        criteria.andRoleidEqualTo(roleid);
+        List<TblRoleVo> list=roleVoMapper.selectByExample(example);
+        return list;
     }
 
     @Override

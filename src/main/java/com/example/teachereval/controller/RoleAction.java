@@ -1,6 +1,7 @@
 package com.example.teachereval.controller;
 
-import com.example.teachereval.pojo.TblRole;
+import com.example.teachereval.pojo.*;
+import com.example.teachereval.service.MenuService;
 import com.example.teachereval.service.RoleService;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
@@ -9,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/role")
 public class RoleAction {
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private MenuService menuService;
 
     @RequestMapping("/getList")
     public List<TblRole> getList(TblRole role){
@@ -25,6 +26,59 @@ public class RoleAction {
 
         List<TblRole> pageInfo = roleService.getList(map);
         return pageInfo;
+    }
+
+    @RequestMapping("/getAllMenu")
+    public List<MenuJson> getAllMenu(){
+        List<TblMenu> list= menuService.getList(new HashMap<String,Object>());
+
+        // 最后的结果
+        List<MenuJson> menuList = new ArrayList<MenuJson>();
+        // 先找到所有的一级菜单
+        for (int i = 0; i < list.size(); i++) {
+            // 一级菜单没有parentId
+            if (list.get(i).getParMen()==0) {
+                MenuJson mj=new MenuJson(list.get(i).getMenid(),list.get(i).getParMen(),
+                        list.get(i).getMenName(),list.get(i).getMenUrl());
+                menuList.add(mj);
+            }
+        }
+
+        // 为一级菜单设置子菜单，getChild是递归调用的
+        for (MenuJson menu : menuList) {
+            menu.setChildren(getChild(menu.getId(), list));
+        }
+        return menuList;
+    }
+
+    /**
+     * 递归算法获取菜单
+     * @param id
+     * @param rootMenu
+     * @return
+     */
+    private List<MenuJson> getChild(String id, List<TblMenu> rootMenu) {
+        // 子菜单
+        List<MenuJson> childList = new ArrayList<>();
+        for (TblMenu menu : rootMenu) {
+            // 遍历所有节点，将父菜单id与传过来的id比较
+            if (menu.getParMen()==Integer.valueOf(id.split("m")[1])) {
+                MenuJson mj=new MenuJson(menu.getMenid(),menu.getParMen(),
+                        menu.getMenName(),menu.getMenUrl());
+                childList.add(mj);
+            }
+        }
+        // 递归退出条件
+        if(childList.size()!=0){
+            // 把子菜单的子菜单再循环一遍
+            for (MenuJson jsonMenu : childList) {// 没有url子菜单还有子菜单
+                // 递归
+                jsonMenu.setChildren(getChild(jsonMenu.getId(), rootMenu));
+            }
+        }else{
+            return null;
+        }
+        return childList;
     }
 
     @RequestMapping("/editRole")
