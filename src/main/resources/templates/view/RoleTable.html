@@ -16,7 +16,7 @@
             success:function (json) {
                 var a=JSON.stringify(json);
                 ztree+="<div class=\"bjui-pageContent\">" +
-                    "<ul id=\'ztree-Menu\' style=\'display: none\' class=\'ztree\' data-toggle=\'ztree\' " +
+                    "<ul id=\'ztree-Menu\' class=\'ztree\' data-toggle=\'ztree\' " +
                     "data-nodes=\'"+a+"\' data-check-enable=\'true\'></ul></div>\n"+
                     "<div class=\"bjui-pageFooter\"><ul>\n" +
                     "<li><button type=\"button\" onclick=\"saveFun();\" class=\"btn-blue\" data-icon=\"hand-o-right \">确定</button></li>\n"+
@@ -31,7 +31,8 @@
             title:'设置功能'
         })
     }
-    
+    function saveFun() {
+    }
     $('#role_datagrid').datagrid({
         height: '100%',
         gridTitle : '角色信息管理',
