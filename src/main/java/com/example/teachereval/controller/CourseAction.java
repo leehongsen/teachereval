@@ -29,8 +29,8 @@ public class CourseAction {
         return pageInfo;
     }
 
-    @RequestMapping("/editMenu")
-    public TblCourse editMenu(@Param("json") String json) throws JSONException {
+    @RequestMapping("/editCourse")
+    public TblCourse editCourse(@Param("json") String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
         Object o=jsonArray.getJSONObject(0).get("couid");
         TblCourse course=new TblCourse();
@@ -50,9 +50,7 @@ public class CourseAction {
     @RequestMapping("/delete")
     public void delete(String[] ids){ courseService.delete(ids);}
 
-    public void edit(TblCourse course){
-        courseService.update(course);
-    }
+    public void edit(TblCourse course){ courseService.update(course);}
 
     public void add(TblCourse course){ courseService.save(course);}
 }
