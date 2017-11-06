@@ -17,7 +17,7 @@
                 var a=JSON.stringify(json);
                 ztree+="<div class=\"bjui-pageContent\">" +
                     "<ul id=\'ztree-Menu\' class=\'ztree\' data-toggle=\'ztree\' " +
-                    "data-nodes=\'"+a+"\' data-check-enable=\'true\' data-onCheck=\'\'></ul></div>\n"+
+                    "data-nodes=\'"+a+"\' data-check-enable=\'true\' data-on-oheck=\'docheck(event, treeId, treeNode);\'></ul><input type='text' id='getNode'></div>\n"+
                     "<div class=\"bjui-pageFooter\"><ul>\n" +
                     "<li><button type=\"button\" onclick=\"saveFun();\" class=\"btn-blue\" data-icon=\"hand-o-right \">确定</button></li>\n"+
                     "    </ul></div>\n";
@@ -32,6 +32,18 @@
         })
     }
     function saveFun() {
+        console.log("OK");
+    }
+    function docheck(event, treeId, treeNode) {
+        console.log("OK");
+        var treeObj=$.fn.zTree.getZTreeObj("ztree-Menu"),
+            nodes=treeObj.getCheckedNodes(true),
+            v="";
+        for(var i=0;i<nodes.length;i++) {
+            v += nodes[i].name + ",";
+        }
+        console.log(nodes[i].id);
+        return
     }
     $('#role_datagrid').datagrid({
         height: '100%',
@@ -64,7 +76,7 @@
                 render:datagrid_tree_operation
             }
         ],
-        editUrl: host+'/role/editUser',
+        editUrl: host+'/role/editRole',
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
         /*tableWidth:'100%',*/
