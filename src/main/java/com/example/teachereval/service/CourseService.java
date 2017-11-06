@@ -4,10 +4,14 @@ import com.example.teachereval.dao.TblCourseMapper;
 import com.example.teachereval.pojo.TblCourse;
 import com.example.teachereval.pojo.TblCourseExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
+@Service("courseService")
 public class CourseService implements IService<TblCourse> {
     @Autowired
     private TblCourseMapper courseMapper;
