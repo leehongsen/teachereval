@@ -103,16 +103,7 @@ public class MenuService implements IService<TblMenu> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = menuMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
-    }
+    public Integer delete(int ids) { return menuMapper.deleteByPrimaryKey(ids); }
 
     @Override
     public Integer update(TblMenu tblMenu) {

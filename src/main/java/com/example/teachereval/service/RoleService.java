@@ -27,16 +27,7 @@ public class RoleService implements IService<TblRole> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = roleMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
-    }
+    public Integer delete(int ids) { return roleMapper.deleteByPrimaryKey(ids);}
 
     public List<TblRoleVo> getRoleMenu(int roleid){
         TblRoleVoExample example=new TblRoleVoExample();

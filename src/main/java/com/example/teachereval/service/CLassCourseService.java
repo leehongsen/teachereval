@@ -18,7 +18,7 @@ public class CLassCourseService implements IService<TblClass>{
     }
 
     @Override
-    public Integer delete(String[] ids) {
+    public Integer delete(int ids) {
         return null;
     }
 

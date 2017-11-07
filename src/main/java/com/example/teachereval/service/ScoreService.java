@@ -22,16 +22,7 @@ public class ScoreService implements IService<TblScore> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = scoreMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
-    }
+    public Integer delete(int ids) { return scoreMapper.deleteByPrimaryKey(ids); }
 
     @Override
     public Integer update(TblScore tblScore) { return scoreMapper.updateByPrimaryKeySelective(tblScore); }

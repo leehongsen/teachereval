@@ -22,16 +22,7 @@ public class ClassService implements IService<TblClass> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = classMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
-    }
+    public Integer delete(int ids) { return classMapper.deleteByPrimaryKey(ids); }
 
     @Override
     public Integer update(TblClass tblClass) {

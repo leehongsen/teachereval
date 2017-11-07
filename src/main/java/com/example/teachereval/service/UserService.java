@@ -28,16 +28,7 @@ public class UserService implements IService<TblUser> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = userMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
-    }
+    public Integer delete(int ids) { return userMapper.deleteByPrimaryKey(ids); }
 
     @Override
     public Integer update(TblUser tblUser) {

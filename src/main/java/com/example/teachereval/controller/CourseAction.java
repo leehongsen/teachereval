@@ -48,7 +48,7 @@ public class CourseAction {
     }
 
     @RequestMapping("/delete")
-    public void delete(String[] ids){ courseService.delete(ids);}
+    public void delete(int couid){ courseService.delete(couid);}
 
     public void edit(TblCourse course){ courseService.update(course);}
 

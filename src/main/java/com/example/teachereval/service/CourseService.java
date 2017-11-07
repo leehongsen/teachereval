@@ -22,15 +22,8 @@ public class CourseService implements IService<TblCourse> {
     }
 
     @Override
-    public Integer delete(String[] ids) {
-        Integer r=1;
-        for (String a:ids){
-            int demo = courseMapper.deleteByPrimaryKey(Integer.valueOf(a));
-            if(demo==0){
-                r=0;
-            }
-        }
-        return r;
+    public Integer delete(int ids) {
+        return courseMapper.deleteByPrimaryKey(ids);
     }
 
     @Override

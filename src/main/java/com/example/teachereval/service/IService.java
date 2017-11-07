@@ -22,7 +22,7 @@ public interface IService<T> {
      *
      * @param ids
      */
-    Integer delete(String[] ids);
+    Integer delete(int ids);
 
     /**
      * 更新数据
