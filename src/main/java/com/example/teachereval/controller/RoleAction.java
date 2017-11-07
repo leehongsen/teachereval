@@ -102,8 +102,9 @@ public class RoleAction {
     }
 
     @RequestMapping("/delete")
-    public void delete(int roleid){
+    public int delete(int roleid){
         roleService.delete(roleid);
+        return roleid;
     }
 
     public void edit(TblRole role){

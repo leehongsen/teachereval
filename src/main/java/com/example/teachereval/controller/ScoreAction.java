@@ -46,7 +46,7 @@ public class ScoreAction {
     }
 
     @RequestMapping("/delete")
-    public void delete(int scoid){ scoreService.delete(scoid);}
+    public int delete(int scoid){ scoreService.delete(scoid);return scoid;}
 
     public void edit(TblScore score){ scoreService.update(score);}
 

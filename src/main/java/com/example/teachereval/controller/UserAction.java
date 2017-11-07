@@ -49,8 +49,9 @@ public class UserAction {
     }
 
     @RequestMapping("/delete")
-    public void delete(int userid){
+    public int delete(int userid){
         userService.delete(userid);
+        return userid;
     }
 
     public void edit(TblUser user){

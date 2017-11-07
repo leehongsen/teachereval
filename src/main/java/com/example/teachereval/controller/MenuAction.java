@@ -84,7 +84,7 @@ public class MenuAction {
     }
 
     @RequestMapping("/delete")
-    public void delete(int menid){ menuService.delete(menid);}
+    public int delete(int menid){ menuService.delete(menid);return menid;}
 
     public void edit(TblMenu menu){
         menuService.update(menu);
