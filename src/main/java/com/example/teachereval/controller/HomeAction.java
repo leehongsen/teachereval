@@ -3,6 +3,7 @@ package com.example.teachereval.controller;
 import com.example.teachereval.pojo.MenuJson;
 import com.example.teachereval.pojo.TblMenu;
 import com.example.teachereval.pojo.TblUser;
+import com.example.teachereval.pojo.TblUserInfo;
 import com.example.teachereval.service.MenuService;
 import com.example.teachereval.service.UserService;
 import com.example.teachereval.util.Encrypt;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeAction {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private MenuService menuService;
 
@@ -33,6 +35,23 @@ public class HomeAction {
             return "index";
         }
         return "404";
+    }
+
+    @RequestMapping("/docheck")
+    @ResponseBody
+    public Map<String,String> doCheck(HttpSession session){
+        TblUser u=(TblUser)session.getAttribute("userinfo");
+        List<TblUserInfo> list=userService.getUserInfo(u.getUserid());
+        String role="";
+        if(null!=list&&list.size()>0){
+            for(TblUserInfo a:list){
+                role+=a.getRoleName()+" ";
+            }
+        }
+        Map<String,String> map=new HashMap<>();
+        map.put("username",u.getUsername());
+        map.put("rolename",role);
+        return map;
     }
 
     @RequestMapping("/doRegistered")
@@ -159,4 +178,8 @@ public class HomeAction {
     public String toRole(){ return "view/RoleTable";}
     @RequestMapping("/toCourse")
     public String toCourse(){ return "view/CourseTable";}
+    @RequestMapping("/toScore")
+    public String toScore(){ return "view/ScoreTable";}
+    @RequestMapping("/toClass")
+    public String toClass(){ return "view/ClassTable";}
 }

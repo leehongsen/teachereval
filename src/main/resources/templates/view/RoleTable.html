@@ -17,7 +17,7 @@
                 var a=JSON.stringify(json);
                 ztree+="<div class=\"bjui-pageContent\">" +
                     "<ul id=\'ztree-Menu\' class=\'ztree\' data-toggle=\'ztree\' " +
-                    "data-nodes=\'"+a+"\' data-check-enable=\'true\' data-on-oheck=\'docheck(event, treeId, treeNode);\'></ul><input type='text' id='getNode'></div>\n"+
+                    "data-nodes=\'"+a+"\' data-check-enable=\'true\' data-on-check=\'docheck(event, treeId, treeNode)\'></ul></div>\n"+
                     "<div class=\"bjui-pageFooter\"><ul>\n" +
                     "<li><button type=\"button\" onclick=\"saveFun();\" class=\"btn-blue\" data-icon=\"hand-o-right \">确定</button></li>\n"+
                     "    </ul></div>\n";
@@ -33,6 +33,8 @@
     }
     function saveFun() {
         console.log("OK");
+        BJUI.dialog('close', 'test_dialog4');
+        return true;
     }
     function docheck(event, treeId, treeNode) {
         console.log("OK");

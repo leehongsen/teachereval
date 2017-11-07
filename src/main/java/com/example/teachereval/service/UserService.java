@@ -130,4 +130,17 @@ public class UserService implements IService<TblUser> {
         }
         return null;
     }
+
+    /**
+     * 根据userid查询用户信息
+     * @param userid
+     * @return
+     */
+    public List<TblUserInfo> getUserInfo(int userid){
+        TblUserInfoExample example=new TblUserInfoExample();
+        TblUserInfoExample.Criteria criteria=example.createCriteria();
+        criteria.andUseridEqualTo(userid);
+        List<TblUserInfo> list=userInfoMapper.selectByExample(example);
+        return list;
+    }
 }

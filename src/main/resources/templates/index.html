@@ -114,6 +114,15 @@
                     });
                 }
             });
+
+            $.ajax({
+                url:host+'/docheck',
+                async:false,
+                success:function (json) {
+                    $("#username").text("账号："+json.username);
+                    $("#rolename").text("角色: "+json.rolename);
+                }
+            });
         })
 
 
@@ -173,8 +182,8 @@
         <nav class="collapse navbar-collapse" id="bjui-top-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="datetime"><a><span id="bjui-date">0000/00/00</span> <span id="bjui-clock">00:00:00</span></a></li>
-                <li><a href="#">账号：BJUI</a></li>
-                <li><a href="#">角色：管理员</a></li>
+                <li><a href="#" id="username">账号：BJUI</a></li>
+                <li><a href="#" id="rolename">角色：管理员</a></li>
                 <li><a href="changepassword.html" data-toggle="dialog" data-id="sys_user_changepass" data-mask="true" data-width="400" data-height="300">修改密码</a></li>
                 <li><a href="login.html" style="font-weight:bold;">&nbsp;<i class="fa fa-power-off"></i> 注销登陆</a></li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle bjui-fonts-tit" data-toggle="dropdown" title="更改字号"><i class="fa fa-font"></i> 大</a>
@@ -248,9 +257,9 @@
             <div class="navtab-panel tabsPageContent">
                 <div class="navtabPage unitBox">
                     <div class="bjui-pageContent">
-                        <div class="highlight">
 
-                        </div>
+                            欢迎使用该系统！！
+
                     </div>
                 </div>
             </div>
