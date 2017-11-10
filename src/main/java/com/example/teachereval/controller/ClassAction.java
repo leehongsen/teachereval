@@ -1,6 +1,8 @@
 package com.example.teachereval.controller;
 
 import com.example.teachereval.pojo.TblClass;
+import com.example.teachereval.pojo.TblClassVo;
+import com.example.teachereval.pojo.TblUser;
 import com.example.teachereval.service.ClassService;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
@@ -45,10 +47,21 @@ public class ClassAction {
         }
     }
 
+    @RequestMapping("/getClassVoList")
+    public List<TblClassVo> getClassVoList(TblClassVo classVo){
+        return classService.getClassVoList(classVo);
+    }
+
     @RequestMapping("/delete")
     public int delete(int claid){ classService.delete(claid);return claid;}
 
     public void edit(TblClass theclass){ classService.update(theclass);}
 
     public void add(TblClass theclass){ classService.save(theclass);}
+
+    @RequestMapping("/getDetail")
+    public TblClassVo getDetail(TblClassVo classVo){ return classService.getDetail(classVo);}
+
+    @RequestMapping("/getClassUser")
+    public List<TblUser> getClassUser(TblClass tblClass){ return classService.getClassUser(tblClass);}
 }

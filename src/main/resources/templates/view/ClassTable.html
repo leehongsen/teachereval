@@ -19,17 +19,102 @@
                 label: '班级名称',
                 align: 'center',
                 width:300
+            },
+            {
+                name:'操作',
+                render:function (value, data) {
+                    var html = '<button type="button" class="btn-green"' +
+                        ' onclick="doGetDetail('+data.bjui_local_index+')">查看班级详情</button>'
+                        + '<button type="button" class="btn-blue" ' +
+                        ' onclick="doStu('+data.bjui_local_index+')">查看班级学生</button>';
+                    return html;
+                }
             }
         ],
         editUrl: host+'/class/editClass',
+        addLocation:'last',
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
-        /*tableWidth:'100%',*/
+        showCheckboxcol: true,
         noremove: false,
         delUrl: host+'/class/delete',
         delPK:'claid',
         delConfirm:'是否删除该用户？'
-    })
+    });
+    
+    function doGetDetail(data) {
+        $('#class_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#class_datagrid').data('selectedDatas');
+        $.ajax({
+            url:host+'/class/getDetail',
+            data:data[0],
+            success:function (json) {
+                var html="<div class=\"bjui-pageContent\">\n" +
+                    "    <div class=\"bs-callout bs-callout-info\">\n" +
+                    "        <h4>"+json.claName+"班详情</h4>\n" +
+                    "        <p><table><tr><th width='100'>课程</th><th width='100'>" +
+                    "教师</th><th width='100'>时间</th></tr>";
+                var couNames=json.couName.split(",");
+                var usernames=json.username.split(",");
+                var couSems=json.couSem.split(",");
+                if(couNames.length>0){
+                    $.each(couNames,function (i,e) {
+                        html+="<tr><td>"+couNames[i]+"</td><td>"+usernames[i]+"</td>" +
+                            "<td>"+couSems[i]+"</td></tr>";
+                    });
+                }
+                html+="</table></p>\n" +
+                    "    </div>\n" +
+                    "</div>\n" +
+                    "<div class=\"bjui-pageFooter\">\n" +
+                    "    <ul>\n" +
+                    "        <li><button type=\"button\" class=\"btn-close\" " +
+                    " data-icon=\"close\">关闭</button></li>\n" +
+                    "    </ul>\n" +
+                    "</div>";
+                BJUI.dialog({
+                    id:'classInfo',
+                    html:html,
+                    title:'班级详情'
+                })
+            }
+        });
+    }
+    
+    function doStu(data) {
+        $('#class_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#class_datagrid').data('selectedDatas');
+        $.ajax({
+            url:host+'/class/getClassUser',
+            data:data[0],
+            success:function (json) {
+                var html="<div class=\"bjui-pageContent\">\n" +
+                    "<div class=\"bs-callout bs-callout-info\">\n" +
+                    "<h4>"+data[0].claName+"班学生情况</h4>\n" +
+                    "<p>";
+                if(json.length>0){
+                    $.each(json,function (i,e) {
+                        html+=e.username+"<br>";
+                    })
+                }
+                html+="</p>\n" +
+                    "    </div>\n" +
+                    "</div>\n" +
+                    "<div class=\"bjui-pageFooter\">\n" +
+                    "    <ul>\n" +
+                    "        <li><button type=\"button\" class=\"btn-close\" " +
+                    " data-icon=\"close\">关闭</button></li>\n" +
+                    "    </ul>\n" +
+                    "</div>";
+                BJUI.dialog({
+                    id:'userInfo',
+                    html:html,
+                    title:'班级学生信息'
+                })
+            }
+
+        });
+    }
 </script>
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">

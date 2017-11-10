@@ -21,19 +21,61 @@
                 width:300
             },
             {
-                name: 'roleName',
+                name: 'roleid',
                 label: '所属角色',
                 align: 'center',
-                width:300
+                type:'select',
+                items:function(){
+                    return $.getJSON(host+'/role/getList')
+                },
+                itemattr:{
+                    value:'roleid',
+                    label:'roleName'
+                }
+            },
+            {
+                name:'claid',
+                label: '所属班级',
+                align: 'center',
+                type:'select',
+                width:80,
+                items:function(){
+                    return $.getJSON(host+'/class/getList')
+                },
+                itemattr:{
+                    value:'claid',
+                    label:'claName'
+                }
             },
             {
                 name: 'roleDes',
                 label: '描述',
                 align: 'center',
                 width:80
+            },
+            {
+                name:'操作',
+                render:function (value, data) {
+                    var html="";
+                    console.log(data);
+                    if(data.roleid==3) {
+                        html += '<button type="button" class="btn-green" data-icon="user-circle" ' +
+                            ' onclick="doGetDetail(' + data.bjui_local_index + ')">查看授课信息</button>'
+                            + '<button type="button" class="btn-blue" data-icon="pencil-square-o" ' +
+                            ' onclick="doAddCourse(' + data.bjui_local_index + ')">设置课程</button>';
+                    }else if(data.roleid==2){
+                        html += '<button type="button" class="btn-orange" ' +
+                            'data-icon="graduation-cap" ' +
+                            'onclick="doGetCourse(' + data.bjui_local_index + ')">查看课程信息</button>';
+                    }else{
+                        html+="<p>无操作</p>";
+                    }
+                    return html;
+                }
             }
         ],
         editUrl: host+'/user/editUser',
+        addLocation:'last',
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
         /*tableWidth:'100%',*/
@@ -42,6 +84,78 @@
         delPK:'userid',
         delConfirm:'是否删除该用户？'
     })
+
+    function doGetDetail(data) {
+        $('#user_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#user_datagrid').data('selectedDatas');
+        $.ajax({
+            url:host+'/class/getClassVoList',
+            data:{userid:data[0].userid},
+            success:function (json) {
+                var html="<div class=\"bjui-pageContent\">\n" +
+                    "<div class=\"bs-callout bs-callout-info\">\n" +
+                    "<h4>"+data[0].username+"授课详情</h4>\n" +
+                    "<p><table><tr><th width='100'>课程</th><th width='100'>" +
+                    "班级</th><th width='100'>时间</th></tr>";
+                if(json.length>0){
+                    $.each(json,function (i,e) {
+                        html+="<tr><td>"+e.couName+"</td><td>"+e.claName+"</td>" +
+                            "<td>"+e.couSem+"</td></tr>";
+                    });
+                }
+                html+="</table></p>\n" +
+                    "    </div>\n" +
+                    "</div>\n" +
+                    "<div class=\"bjui-pageFooter\">\n" +
+                    "    <ul>\n" +
+                    "        <li><button type=\"button\" class=\"btn-close\" " +
+                    " data-icon=\"close\">关闭</button></li>\n" +
+                    "    </ul>\n" +
+                    "</div>";
+                BJUI.dialog({
+                    id:'classInfo',
+                    html:html,
+                    title:'班级详情'
+                })
+            }
+        });
+    }
+    
+    function doGetCourse(data) {
+        $('#user_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#user_datagrid').data('selectedDatas');
+        $.ajax({
+            url:host+'/class/getClassVoList',
+            data:{claid:data[0].claid},
+            success:function (json) {
+                var html="<div class=\"bjui-pageContent\">\n" +
+                    "<div class=\"bs-callout bs-callout-info\">\n" +
+                    "<h4>"+data[0].username+"的课程详情</h4>\n" +
+                    "<p><table><tr><th width='100'>课程</th><th width='100'>" +
+                    "教师</th><th width='100'>时间</th></tr>";
+                if(json.length>0){
+                    $.each(json,function (i,e) {
+                        html+="<tr><td>"+e.couName+"</td><td>"+e.username+"</td>" +
+                            "<td>"+e.couSem+"</td></tr>";
+                    });
+                }
+                html+="</table></p>\n" +
+                    "    </div>\n" +
+                    "</div>\n" +
+                    "<div class=\"bjui-pageFooter\">\n" +
+                    "    <ul>\n" +
+                    "        <li><button type=\"button\" class=\"btn-close\" " +
+                    " data-icon=\"close\">关闭</button></li>\n" +
+                    "    </ul>\n" +
+                    "</div>";
+                BJUI.dialog({
+                    id:'classInfo',
+                    html:html,
+                    title:'班级详情'
+                })
+            }
+        });
+    }
 </script>
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">

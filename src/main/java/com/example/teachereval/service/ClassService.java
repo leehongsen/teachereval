@@ -1,8 +1,9 @@
 package com.example.teachereval.service;
 
 import com.example.teachereval.dao.TblClassMapper;
-import com.example.teachereval.pojo.TblClass;
-import com.example.teachereval.pojo.TblClassExample;
+import com.example.teachereval.dao.TblClassVoMapper;
+import com.example.teachereval.dao.TblUserMapper;
+import com.example.teachereval.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ import java.util.Map;
 public class ClassService implements IService<TblClass> {
     @Autowired
     private TblClassMapper classMapper;
+    @Autowired
+    private TblClassVoMapper classVoMapper;
+    @Autowired
+    private TblUserMapper userMapper;
 
     @Override
     public Integer save(TblClass tblClass) {
@@ -51,5 +56,49 @@ public class ClassService implements IService<TblClass> {
     @Override
     public Object getRecord(TblClass tblClass) {
         return null;
+    }
+
+    public TblClassVo getDetail(TblClassVo classVo){
+        TblClassVoExample example=new TblClassVoExample();
+        TblClassVoExample.Criteria criteria=example.createCriteria();
+        criteria.andClaidEqualTo(classVo.getClaid());
+        List<TblClassVo> list=classVoMapper.selectByExample(example);
+        if(list.size()>0){
+            if(list.size()>1){
+                TblClassVo imp=list.get(0);
+                list.remove(0);
+                for(TblClassVo i:list){
+                    imp.setCouName(imp.getCouName()+","+i.getCouName());
+                    imp.setUsername(imp.getUsername()+","+i.getUsername());
+                    imp.setCouSem(imp.getCouSem()+","+i.getCouSem());
+                }
+            }else{
+                return list.get(0);
+            }
+        }
+        return null;
+    }
+
+    public List<TblUser> getClassUser(TblClass tblClass){
+        TblUserExample example=new TblUserExample();
+        TblUserExample.Criteria criteria=example.createCriteria();
+        if(null!=tblClass.getClaid()){
+            criteria.andClaidEqualTo(tblClass.getClaid());
+            return userMapper.selectByExample(example);
+        }else{
+            return null;
+        }
+    }
+
+    public List<TblClassVo> getClassVoList(TblClassVo classVo){
+        TblClassVoExample example=new TblClassVoExample();
+        TblClassVoExample.Criteria criteria=example.createCriteria();
+        if(null!=classVo.getUserid()){
+            criteria.andUseridEqualTo(classVo.getUserid());
+        }
+        if(null!=classVo.getClaid()){
+            criteria.andClaidEqualTo(classVo.getClaid());
+        }
+        return classVoMapper.selectByExample(example);
     }
 }
