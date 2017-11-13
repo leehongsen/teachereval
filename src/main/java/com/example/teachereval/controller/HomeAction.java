@@ -26,6 +26,7 @@ public class HomeAction {
     @Autowired
     private MenuService menuService;
 
+    /*登录*/
     @RequestMapping("/doLogin")
     public String login(TblUser user, HttpSession session){
         user.setPassword(Encrypt.MD5(user.getPassword()));
@@ -37,6 +38,7 @@ public class HomeAction {
         return "404";
     }
 
+    /*确认用户*/
     @RequestMapping("/docheck")
     @ResponseBody
     public Map<String,String> doCheck(HttpSession session){
@@ -54,6 +56,7 @@ public class HomeAction {
         return map;
     }
 
+    /*注册*/
     @RequestMapping("/doRegistered")
     public String registered(TblUser user){
         user.setPassword(Encrypt.MD5(user.getPassword()));
@@ -63,8 +66,27 @@ public class HomeAction {
         return "404";
     }
 
-    @RequestMapping("/doCheck")
+    @RequestMapping("/editPassword")
+    public String editPassword(){ return "changepassword";}
+
+    @RequestMapping("/doEditPassword")
     @ResponseBody
+    public Map<String,String> doEditPassword(String oldPassword,String newPassword,HttpSession session){
+        TblUser u=(TblUser)session.getAttribute("userinfo");
+        String pass=Encrypt.MD5(oldPassword);
+        Map<String ,String> map=new HashMap<String,String>();
+        if(u.getPassword().equals(Encrypt.MD5(oldPassword))){
+            u.setPassword(Encrypt.MD5(newPassword));
+            userService.update(u);
+            map.put("statusCode","200");
+            map.put("message","修改成功！！");
+            return map;
+        }
+        return null;
+    }
+
+    /*注册用户名是否可用，false表示已经被注册*/
+    @RequestMapping("/doCheck")  @ResponseBody
     public boolean check(String username){
         TblUser user=userService.selectByUsername(username);
         if(null!=user&&user.getUsername()!=null){

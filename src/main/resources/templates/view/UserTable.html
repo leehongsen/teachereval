@@ -59,14 +59,16 @@
                     var html="";
                     console.log(data);
                     if(data.roleid==3) {
-                        html += '<button type="button" class="btn-green" data-icon="user-circle" ' +
-                            ' onclick="doGetDetail(' + data.bjui_local_index + ')">查看授课信息</button>'
-                            + '<button type="button" class="btn-blue" data-icon="pencil-square-o" ' +
-                            ' onclick="doAddCourse(' + data.bjui_local_index + ')">设置课程</button>';
+                        html += '<button type="button" class="btn-green" data-icon="user-circle" '+
+                            ' onclick="doGetDetail('
+                            + data.bjui_local_index + ')">查看授课信息</button>'
+                            + '<button type="button" class="btn-blue" data-icon="pencil-square-o" '+
+                            ' onclick="doAddCourse('
+                            + data.bjui_local_index + ')">设置课程</button>';
                     }else if(data.roleid==2){
                         html += '<button type="button" class="btn-orange" ' +
-                            'data-icon="graduation-cap" ' +
-                            'onclick="doGetCourse(' + data.bjui_local_index + ')">查看课程信息</button>';
+                            'data-icon="graduation-cap" onclick="doGetCourse('
+                            + data.bjui_local_index + ')">查看课程信息</button>';
                     }else{
                         html+="<p>无操作</p>";
                     }
