@@ -1,10 +1,88 @@
+<script>
+    var host=getContextPath();
+    $.ajax({
+       url:host+'/exercise/getList',
+       data:{role:'学生'},
+       success:function (json) {
+           console.log(json);
+           var html="<div id=\"test\">";
+           $.each(json.answerList,function (i,e) {
+                html+="<div class=\"bjui-row col-2\">"+
+                    "<div class=\"bs-callout bs-callout-info row-input\" " +
+                    "style=\"width: 600px;float: left\">\n" +
+                    "<h4>"+e.name+"</h4>\n" +
+                    "<p style='position: relative'>"+e.A+
+                    "<span style='position: absolute; right: 5px'>权重："
+                    +json.exerciseList[i].value+"</span></p>\n" +
+                    "<p>"+e.B+"</p>\n" +
+                    "<p>"+e.C+"</p>\n" +
+                    "<p>"+e.D+"</p>\n" +
+                    "</div></div>";
+           });
+           html+="</div>";
+           $("#imp").append(html);
+       }
+    });
+
+    $("#getRole").change(function () {
+        var data = new Object();
+        if ($(this).find(':selected').val() === '1') {
+            data.role = '学生';
+        } else if ($(this).find(':selected').val() === '2') {
+            data.role = '系主任';
+        } else if ($(this).find(':selected').val() === '3') {
+            data.role = '教研组主任';
+        } else if ($(this).find(':selected').val() === '4') {
+            data.role = '同行';
+        } else {
+            data.role = '自评';
+        }
+        $("#test").remove();
+        $.ajax({
+            url: host + '/exercise/getList',
+            data: data,
+            success: function (json) {
+                console.log(json);
+                var html = "<div id=\"test\">";
+                $.each(json.answerList, function (i, e) {
+                    html += "<div class=\"bjui-row col-2\" id=\"test\">" +
+                        "<div class=\"bs-callout bs-callout-info row-input\" " +
+                        "style=\"width: 600px;float: left\">\n" +
+                        "<h4>" + e.name + "</h4>\n" +
+                        "<p style='position: relative'>" + e.A +
+                        "<span style='position: absolute; right: 5px'>权重："
+                        + json.exerciseList[i].value + "</span></p>\n" +
+                        "<p>" + e.B + "</p>\n" +
+                        "<p>" + e.C + "</p>\n" +
+                        "<p>" + e.D + "</p>\n" +
+                        "</div></div>";
+                });
+                html+="</div>";
+                $("#imp").append(html);
+            }
+        });
+    });
+</script>
+
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">
         <h4>考试信息</h4>
         <p>满屏的考试信息。</p>
     </div>
 </div>
-<div class="bjui-pageContent">
-    <table id="course_datagrid" class="table table-bordered">
-    </table>
+<div class="bjui-pageContent" id="imp">
+    <div class="bjui-row col-2">
+        <label class="row-label">指标设置</label>
+        <div class="row-input">
+            <select name="province" data-toggle="selectpicker" data-nextselect="#j_form_city2"
+                    id="getRole">
+                <option value="0">--一级指标--</option>
+                <option value="1">学生</option>
+                <option value="2">系部</option>
+                <option value="3">教研室</option>
+                <option value="4">同行</option>
+                <option value="0">自评</option>
+            </select>
+        </div>
+    </div>
 </div>

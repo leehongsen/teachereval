@@ -204,4 +204,6 @@ public class HomeAction {
     public String toScore(){ return "view/ScoreTable";}
     @RequestMapping("/toClass")
     public String toClass(){ return "view/ClassTable";}
+    @RequestMapping("/toExercise")
+    public String toExercise(){ return "view/ExerciseTable"; }
 }

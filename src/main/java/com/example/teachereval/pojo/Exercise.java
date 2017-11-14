@@ -1,13 +1,8 @@
 package com.example.teachereval.pojo;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Map;
 
-@Component
-@ConfigurationProperties(prefix = "Mybar")
 public class Exercise {
     private String role;
     private double right;
