@@ -9,6 +9,8 @@
     <result column="groupid" jdbcType="INTEGER" property="groupid" />
     <result column="couName" jdbcType="VARCHAR" property="couName" />
     <result column="couSem" jdbcType="VARCHAR" property="couSem" />
+    <result column="claid" jdbcType="INTEGER" property="claid" />
+    <result column="claName" jdbcType="VARCHAR" property="claName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -40,7 +42,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    userid, username, PASSWORD, couid, groupid, couName, couSem
+    userid, username, PASSWORD, couid, groupid, couName, couSem, claid, claName
   </sql>
   <select id="selectByExample" parameterType="com.example.teachereval.pojo.TblTeacherInfoExample" resultMap="BaseResultMap">
     select
@@ -60,10 +62,12 @@
   <insert id="insert" parameterType="com.example.teachereval.pojo.TblTeacherInfo">
     insert into teacherinfo (userid, username, PASSWORD, 
       couid, groupid, couName, 
-      couSem)
+      couSem, claid, claName
+      )
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{PASSWORD,jdbcType=VARCHAR}, 
       #{couid,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, #{couName,jdbcType=VARCHAR}, 
-      #{couSem,jdbcType=VARCHAR})
+      #{couSem,jdbcType=VARCHAR}, #{claid,jdbcType=INTEGER}, #{claName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.example.teachereval.pojo.TblTeacherInfo">
     insert into teacherinfo
@@ -89,6 +93,12 @@
       <if test="couSem != null">
         couSem,
       </if>
+      <if test="claid != null">
+        claid,
+      </if>
+      <if test="claName != null">
+        claName,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userid != null">
@@ -111,6 +121,12 @@
       </if>
       <if test="couSem != null">
         #{couSem,jdbcType=VARCHAR},
+      </if>
+      <if test="claid != null">
+        #{claid,jdbcType=INTEGER},
+      </if>
+      <if test="claName != null">
+        #{claName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

@@ -90,11 +90,9 @@
     function doGetDetail(data) {
         $('#user_datagrid').datagrid('selectedRows',data,true);
         var data=$('#user_datagrid').data('selectedDatas');
-        var key=new Object();
-        key.userid=data[0].userid;
         $.ajax({
-            url:host+'/user/getTeacherInfo',
-            data:key,
+            url:host+'/class/getClassVoList',
+            data:{userid:data[0].userid},
             success:function (json) {
                 var html="<div class=\"bjui-pageContent\">\n" +
                     "<div class=\"bs-callout bs-callout-info\">\n" +
@@ -124,15 +122,13 @@
             }
         });
     }
-    
+
     function doGetCourse(data) {
         $('#user_datagrid').datagrid('selectedRows',data,true);
         var data=$('#user_datagrid').data('selectedDatas');
-        var key=new Object();
-        key.claid=data[0].claid;
         $.ajax({
-            url:host+'/user/getTeacherInfo',
-            data:key,
+            url:host+'/class/getClassVoList',
+            data:{claid:data[0].claid},
             success:function (json) {
                 var html="<div class=\"bjui-pageContent\">\n" +
                     "<div class=\"bs-callout bs-callout-info\">\n" +
@@ -161,16 +157,6 @@
                 })
             }
         });
-    }
-    
-    function doAddCourse(data) {
-        $('#user_datagrid').datagrid('selectedRows',data,true);
-        var data=$('#user_datagrid').data('selectedDatas');
-        BJUI.dialog({
-            id:'addCourse',
-            url:host+'/AddCouseToTeacher?userid='+data[0].userid,
-            title:data[0].username+'添加课程'
-        })
     }
 </script>
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">

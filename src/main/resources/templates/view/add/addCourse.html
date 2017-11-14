@@ -1,0 +1,89 @@
+<script>
+    var host=getContextPath();
+    $.get("getAddUserid",function (json) {
+        $("#userid").val(json);
+    });
+
+    /*班级下拉*/
+    $.ajax({
+        url:host+'/class/getList',
+        dataType:'json',
+        async:false,
+        success:function(data){
+            $("#selectClass").empty();
+            $("#selectClass").append("<option>---请选择---</option>");
+            var opt="";
+            $.each(data,function(i,o){
+
+                opt+= "<option value=\'"+ o.claid +"\'>" + o.claName + "</option>";
+
+            });
+            $("#selectClass").append(opt);
+            $("#selectClass").selectpicker('refresh');//动态加载
+        },error:function(){
+        }
+    });
+
+    /*课程下拉*/
+    $.ajax({
+        url:host+'/course/getList',
+        dataType:'json',
+        async:false,
+        success:function(data){
+            $("#selectCourse").empty();
+            $("#selectCourse").append("<option>---请选择---</option>");
+            var opt="";
+            $.each(data,function(i,o){
+
+                opt+= "<option value=\'"+ o.couid +"\'>" + o.couName + "</option>";
+
+            });
+            $("#selectCourse").append(opt);
+            $("#selectCourse").selectpicker('refresh');//动态加载
+        },error:function(){
+        }
+    });
+
+    function doAdd(){
+        var course=new Object();
+        course.userid=$("#userid").val();
+        course.claid=$("#selectClass").val();
+        course.couid=$("#selectCourse").val();
+        $.ajax({
+            url:host+'/user/addCouseToTeacher',
+            data:course,
+            success:function(data){
+                if(data){
+                    BJUI.dialog('close', 'addCourse');
+                    return true;
+                }
+            }
+        });
+    }
+</script>
+<div class="bjui-pageContent">
+    <div class="bjui-row col-1">
+        <label class="row-label"></label>
+        <div class="row-input">
+            <input type="hidden" id="userid">
+        </div>
+        <label class="row-label">班级</label>
+        <div class="row-input">
+            <select class="selectpicker" id="selectClass">
+                <option>---请选择---</option>
+            </select>
+        </div>
+        <label class="row-label">课程</label>
+        <div class="row-input">
+            <select class="selectpicker" id="selectCourse">
+                <option>---请选择---</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="button" class="btn-default" onclick="doAdd();" data-icon="save">保存</button></li>
+    </ul>
+</div>

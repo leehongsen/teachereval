@@ -20,6 +20,8 @@ spring:
     cache: false
     #弱语法检验
     mode: LEGACYHTML5
+  aop:
+    proxy-target-class: true
 
 #mybatis设置
 mybatis:

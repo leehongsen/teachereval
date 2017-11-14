@@ -15,6 +15,10 @@ public class TblTeacherInfo {
 
     private String couSem;
 
+    private Integer claid;
+
+    private String claName;
+
     public Integer getUserid() {
         return userid;
     }
@@ -69,5 +73,21 @@ public class TblTeacherInfo {
 
     public void setCouSem(String couSem) {
         this.couSem = couSem == null ? null : couSem.trim();
+    }
+
+    public Integer getClaid() {
+        return claid;
+    }
+
+    public void setClaid(Integer claid) {
+        this.claid = claid;
+    }
+
+    public String getClaName() {
+        return claName;
+    }
+
+    public void setClaName(String claName) {
+        this.claName = claName == null ? null : claName.trim();
     }
 }

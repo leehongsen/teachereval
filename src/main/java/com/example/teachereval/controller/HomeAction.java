@@ -20,11 +20,23 @@ import java.util.Map;
 
 @Controller
 public class HomeAction {
-
     @Autowired
     private UserService userService;
     @Autowired
     private MenuService menuService;
+    /*主要目的是设置和获取教师的用户id*/
+    private int userid;
+
+    /*获取添加课程的教师id*/
+    @RequestMapping("getAddUserid")
+    @ResponseBody
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     /*登录*/
     @RequestMapping("/doLogin")
@@ -66,9 +78,11 @@ public class HomeAction {
         return "404";
     }
 
+    /*跳转修改密码*/
     @RequestMapping("/editPassword")
     public String editPassword(){ return "changepassword";}
 
+    /*修改密码*/
     @RequestMapping("/doEditPassword")
     @ResponseBody
     public Map<String,String> doEditPassword(String oldPassword,String newPassword,HttpSession session){
@@ -206,4 +220,9 @@ public class HomeAction {
     public String toClass(){ return "view/ClassTable";}
     @RequestMapping("/toExercise")
     public String toExercise(){ return "view/ExerciseTable"; }
+    @RequestMapping("/AddCouseToTeacher")
+    public String toAddCourse(int userid){
+        this.setUserid(userid);
+        return "view/add/addCourse";
+    }
 }

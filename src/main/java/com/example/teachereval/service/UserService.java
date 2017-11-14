@@ -1,17 +1,14 @@
 package com.example.teachereval.service;
 
-import com.example.teachereval.dao.TblUserInfoMapper;
-import com.example.teachereval.dao.TblUserMapper;
-import com.example.teachereval.pojo.TblUser;
-import com.example.teachereval.pojo.TblUserExample;
-import com.example.teachereval.pojo.TblUserInfo;
-import com.example.teachereval.pojo.TblUserInfoExample;
+import com.example.teachereval.dao.*;
+import com.example.teachereval.pojo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 @Component
@@ -21,6 +18,10 @@ public class UserService implements IService<TblUser> {
     private TblUserMapper userMapper;
     @Autowired
     private TblUserInfoMapper userInfoMapper;
+    @Autowired
+    private TblTeacherClassMapper teacherClassMapper;
+    @Autowired
+    private TblTeacherInfoMapper tblTeacherInfoMapper;
 
     @Override
     public Integer save(TblUser tblUser) {
@@ -133,5 +134,23 @@ public class UserService implements IService<TblUser> {
         criteria.andUseridEqualTo(userid);
         List<TblUserInfo> list=userInfoMapper.selectByExample(example);
         return list;
+    }
+
+    /**
+     * 添加教师课程
+     * @param course
+     */
+    public void addCouseToTeacher(TblTeacherClassKey course){ teacherClassMapper.insertSelective(course); }
+
+    public List<TblTeacherInfo> getTeacherInfo(TblTeacherInfo info){
+        TblTeacherInfoExample example=new TblTeacherInfoExample();
+        TblTeacherInfoExample.Criteria criteria=example.createCriteria();
+        if(null!=info.getClaid()){
+            criteria.andClaidEqualTo(info.getClaid());
+        }
+        if(null!=info.getUserid()){
+            criteria.andUseridEqualTo(info.getUserid());
+        }
+        return tblTeacherInfoMapper.selectByExample(example);
     }
 }

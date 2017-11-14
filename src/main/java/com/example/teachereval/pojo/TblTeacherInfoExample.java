@@ -563,6 +563,136 @@ public class TblTeacherInfoExample {
             addCriterion("couSem not between", value1, value2, "couSem");
             return (Criteria) this;
         }
+
+        public Criteria andClaidIsNull() {
+            addCriterion("claid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidIsNotNull() {
+            addCriterion("claid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidEqualTo(Integer value) {
+            addCriterion("claid =", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidNotEqualTo(Integer value) {
+            addCriterion("claid <>", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidGreaterThan(Integer value) {
+            addCriterion("claid >", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("claid >=", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidLessThan(Integer value) {
+            addCriterion("claid <", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidLessThanOrEqualTo(Integer value) {
+            addCriterion("claid <=", value, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidIn(List<Integer> values) {
+            addCriterion("claid in", values, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidNotIn(List<Integer> values) {
+            addCriterion("claid not in", values, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidBetween(Integer value1, Integer value2) {
+            addCriterion("claid between", value1, value2, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaidNotBetween(Integer value1, Integer value2) {
+            addCriterion("claid not between", value1, value2, "claid");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameIsNull() {
+            addCriterion("claName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameIsNotNull() {
+            addCriterion("claName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameEqualTo(String value) {
+            addCriterion("claName =", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameNotEqualTo(String value) {
+            addCriterion("claName <>", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameGreaterThan(String value) {
+            addCriterion("claName >", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameGreaterThanOrEqualTo(String value) {
+            addCriterion("claName >=", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameLessThan(String value) {
+            addCriterion("claName <", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameLessThanOrEqualTo(String value) {
+            addCriterion("claName <=", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameLike(String value) {
+            addCriterion("claName like", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameNotLike(String value) {
+            addCriterion("claName not like", value, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameIn(List<String> values) {
+            addCriterion("claName in", values, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameNotIn(List<String> values) {
+            addCriterion("claName not in", values, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameBetween(String value1, String value2) {
+            addCriterion("claName between", value1, value2, "claName");
+            return (Criteria) this;
+        }
+
+        public Criteria andClaNameNotBetween(String value1, String value2) {
+            addCriterion("claName not between", value1, value2, "claName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

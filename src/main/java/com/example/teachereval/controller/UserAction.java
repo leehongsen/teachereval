@@ -1,15 +1,16 @@
 package com.example.teachereval.controller;
 
-import com.example.teachereval.pojo.TblUser;
-import com.example.teachereval.pojo.TblUserInfo;
+import com.example.teachereval.pojo.*;
 import com.example.teachereval.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,4 +63,14 @@ public class UserAction {
         userService.save(user);
     }
 
+    @RequestMapping("/addCouseToTeacher")
+    public Boolean addCouseToTeacher(TblTeacherClassKey course){
+        userService.addCouseToTeacher(course);
+        return true;
+    }
+
+    @RequestMapping("/getTeacherInfo")
+    public List<TblTeacherInfo> getTeacherInfo(TblTeacherInfo key){
+        return userService.getTeacherInfo(key);
+    }
 }
