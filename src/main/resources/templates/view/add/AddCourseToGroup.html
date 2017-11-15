@@ -1,27 +1,7 @@
 <script>
     var host=getContextPath();
-    $.get("getAddUserid",function (json) {
-        $("#userid").val(json);
-    });
-
-    /*班级下拉*/
-    $.ajax({
-        url:host+'/class/getList',
-        dataType:'json',
-        async:false,
-        success:function(data){
-            $("#selectClass").empty();
-            $("#selectClass").append("<option>---请选择---</option>");
-            var opt="";
-            $.each(data,function(i,o){
-
-                opt+= "<option value=\'"+ o.claid +"\'>" + o.claName + "</option>";
-
-            });
-            $("#selectClass").append(opt);
-            $("#selectClass").selectpicker('refresh');//动态加载
-        },error:function(){
-        }
+    $.get("getAddGroupid",function (json) {
+        $("#groupid").val(json);
     });
 
     /*课程下拉*/
@@ -45,16 +25,18 @@
     });
 
     function doAdd(){
-        var course=new Object();
-        course.userid=$("#userid").val();
-        course.claid=$("#selectClass").val();
-        course.couid=$("#selectCourse").val();
+        var groupid=$("#groupid").val();
+        var arr=$("#selectCourse").val();
+        console.log(arr);
         $.ajax({
-            url:host+'/user/addCourseToTeacher',
-            data:course,
+            url:host+'/group/addCourse',
+            data:{
+                groupid:groupid,
+                ids:arr
+            },
             success:function(data){
                 if(data){
-                    BJUI.dialog('close', 'addCourse');
+                    BJUI.dialog('close', 'addCourseToGroup');
                     return true;
                 }
             }
@@ -65,17 +47,11 @@
     <div class="bjui-row col-1">
         <label class="row-label"></label>
         <div class="row-input">
-            <input type="hidden" id="userid">
-        </div>
-        <label class="row-label">班级</label>
-        <div class="row-input">
-            <select class="selectpicker" id="selectClass">
-                <option>---请选择---</option>
-            </select>
+            <input type="hidden" id="groupid">
         </div>
         <label class="row-label">课程</label>
         <div class="row-input">
-            <select class="selectpicker" id="selectCourse">
+            <select class="selectpicker" id="selectCourse"  multiple="">
                 <option>---请选择---</option>
             </select>
         </div>

@@ -146,11 +146,11 @@
                     });
                 }
                 html+="</table></p>\n" +
-                    "    </div>\n" +
+                    "</div>\n" +
                     "</div>\n" +
                     "<div class=\"bjui-pageFooter\">\n" +
-                    "    <ul>\n" +
-                    "        <li><button type=\"button\" class=\"btn-close\" " +
+                    "<ul>\n" +
+                    "<li><button type=\"button\" class=\"btn-close\" " +
                     " data-icon=\"close\">关闭</button></li>\n" +
                     "    </ul>\n" +
                     "</div>";
@@ -168,7 +168,7 @@
         var data=$('#user_datagrid').data('selectedDatas');
         BJUI.dialog({
             id:'addCourse',
-            url:host+'/AddCouseToTeacher?userid='+data[0].userid,
+            url:host+'/AddCourseToTeacher?userid='+data[0].userid,
             title:data[0].username+'添加课程'
         })
     }

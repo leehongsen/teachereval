@@ -1,162 +1,69 @@
 <script type="text/javascript">
     var host=getContextPath();
-    $('#user_datagrid').datagrid({
+    $('#group_datagrid').datagrid({
         height: '100%',
-        gridTitle : '用户信息管理',
+        gridTitle : '批次管理',
         showToolbar: true,
         toolbarItem: 'all',
         local: 'local',
-        dataUrl: host+'/user/getList',
+        dataUrl: host+'/group/getList',
         columns: [
             {
-                name: 'userid',
-                label: '用户id',
+                name: 'groupid',
+                label: '批次id',
                 align: 'center',
                 width: 70
             },
             {
-                name: 'username',
-                label: '用户名',
+                name: 'beginTime',
+                label: '开始时间',
                 align: 'center',
-                width:300
+                type:'date',
+                pattern:'yyyy-MM-dd',
+                width:200,
+                render:function(value){
+                    return value?value.substr(0,16):value}
             },
             {
-                name: 'roleid',
-                label: '所属角色',
+                name: 'endTime',
+                label: '结束时间',
                 align: 'center',
-                type:'select',
-                items:function(){
-                    return $.getJSON(host+'/role/getList')
-                },
-                itemattr:{
-                    value:'roleid',
-                    label:'roleName'
-                }
-            },
-            {
-                name:'claid',
-                label: '所属班级',
-                align: 'center',
-                type:'select',
-                width:80,
-                items:function(){
-                    return $.getJSON(host+'/class/getList')
-                },
-                itemattr:{
-                    value:'claid',
-                    label:'claName'
-                }
-            },
-            {
-                name: 'roleDes',
-                label: '描述',
-                align: 'center',
-                width:80
+                type:'date',
+                pattern:'yyyy-MM-dd',
+                width:200,
+                render:function(value){
+                    return value?value.substr(0,16):value}
             },
             {
                 name:'操作',
                 render:function (value, data) {
                     var html="";
-                    console.log(data);
-                    if(data.roleid==3) {
-                        html += '<button type="button" class="btn-green" data-icon="user-circle" '+
-                            ' onclick="doGetDetail('
-                            + data.bjui_local_index + ')">查看授课信息</button>'
-                            + '<button type="button" class="btn-blue" data-icon="pencil-square-o" '+
-                            ' onclick="doAddCourse('
-                            + data.bjui_local_index + ')">设置课程</button>';
-                    }else if(data.roleid==2){
-                        html += '<button type="button" class="btn-orange" ' +
-                            'data-icon="graduation-cap" onclick="doGetCourse('
-                            + data.bjui_local_index + ')">查看课程信息</button>';
-                    }else{
-                        html+="<p>无操作</p>";
-                    }
+                    html += '<button type="button" class="btn-blue" ' +
+                        'data-icon="pencil-square-o" onclick="doAddCourseToGroup('
+                        + data.bjui_local_index + ')">设置参与评价课程</button>';
                     return html;
                 }
             }
         ],
-        editUrl: host+'/user/editUser',
+        editUrl: host+'/group/editGroup',
         addLocation:'last',
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
         /*tableWidth:'100%',*/
         noremove: false,
-        delUrl: host+'/user/delete',
-        delPK:'userid',
+        delUrl: host+'/group/delete',
+        delPK:'groupid',
         delConfirm:'是否删除该用户？'
-    })
+    });
 
-    function doGetDetail(data) {
-        $('#user_datagrid').datagrid('selectedRows',data,true);
-        var data=$('#user_datagrid').data('selectedDatas');
-        $.ajax({
-            url:host+'/class/getClassVoList',
-            data:{userid:data[0].userid},
-            success:function (json) {
-                var html="<div class=\"bjui-pageContent\">\n" +
-                    "<div class=\"bs-callout bs-callout-info\">\n" +
-                    "<h4>"+data[0].username+"授课详情</h4>\n" +
-                    "<p><table><tr><th width='100'>课程</th><th width='100'>" +
-                    "班级</th><th width='100'>时间</th></tr>";
-                if(json.length>0){
-                    $.each(json,function (i,e) {
-                        html+="<tr><td>"+e.couName+"</td><td>"+e.claName+"</td>" +
-                            "<td>"+e.couSem+"</td></tr>";
-                    });
-                }
-                html+="</table></p>\n" +
-                    "    </div>\n" +
-                    "</div>\n" +
-                    "<div class=\"bjui-pageFooter\">\n" +
-                    "    <ul>\n" +
-                    "        <li><button type=\"button\" class=\"btn-close\" " +
-                    " data-icon=\"close\">关闭</button></li>\n" +
-                    "    </ul>\n" +
-                    "</div>";
-                BJUI.dialog({
-                    id:'classInfo',
-                    html:html,
-                    title:'班级详情'
-                })
-            }
-        });
-    }
-
-    function doGetCourse(data) {
-        $('#user_datagrid').datagrid('selectedRows',data,true);
-        var data=$('#user_datagrid').data('selectedDatas');
-        $.ajax({
-            url:host+'/class/getClassVoList',
-            data:{claid:data[0].claid},
-            success:function (json) {
-                var html="<div class=\"bjui-pageContent\">\n" +
-                    "<div class=\"bs-callout bs-callout-info\">\n" +
-                    "<h4>"+data[0].username+"的课程详情</h4>\n" +
-                    "<p><table><tr><th width='100'>课程</th><th width='100'>" +
-                    "教师</th><th width='100'>时间</th></tr>";
-                if(json.length>0){
-                    $.each(json,function (i,e) {
-                        html+="<tr><td>"+e.couName+"</td><td>"+e.username+"</td>" +
-                            "<td>"+e.couSem+"</td></tr>";
-                    });
-                }
-                html+="</table></p>\n" +
-                    "    </div>\n" +
-                    "</div>\n" +
-                    "<div class=\"bjui-pageFooter\">\n" +
-                    "    <ul>\n" +
-                    "        <li><button type=\"button\" class=\"btn-close\" " +
-                    " data-icon=\"close\">关闭</button></li>\n" +
-                    "    </ul>\n" +
-                    "</div>";
-                BJUI.dialog({
-                    id:'classInfo',
-                    html:html,
-                    title:'班级详情'
-                })
-            }
-        });
+    function doAddCourseToGroup(data) {
+        $('#group_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#group_datagrid').data('selectedDatas');
+        BJUI.dialog({
+            id:'addCourseToGroup',
+            url:host+'/AddCourseToGroup?groupid='+data[0].groupid,
+            title:data[0].beginTime+'-'+data[0].endTime+'批次设置评教课程'
+        })
     }
 </script>
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
@@ -166,6 +73,6 @@
     </div>
 </div>
 <div class="bjui-pageContent">
-    <table id="user_datagrid" class="table table-bordered">
+    <table id="group_datagrid" class="table table-bordered">
     </table>
 </div>

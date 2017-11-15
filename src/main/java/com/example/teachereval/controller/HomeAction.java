@@ -26,6 +26,7 @@ public class HomeAction {
     private MenuService menuService;
     /*主要目的是设置和获取教师的用户id*/
     private int userid;
+    private int groupid;
 
     /*获取添加课程的教师id*/
     @RequestMapping("getAddUserid")
@@ -37,6 +38,13 @@ public class HomeAction {
     public void setUserid(int userid) {
         this.userid = userid;
     }
+
+    /*获取添加课程的批次id*/
+    @RequestMapping("getAddGroupid")
+    @ResponseBody
+    public int getGroupid() { return groupid; }
+
+    public void setGroupid(int groupid) { this.groupid = groupid; }
 
     /*登录*/
     @RequestMapping("/doLogin")
@@ -220,9 +228,16 @@ public class HomeAction {
     public String toClass(){ return "view/ClassTable";}
     @RequestMapping("/toExercise")
     public String toExercise(){ return "view/ExerciseTable"; }
-    @RequestMapping("/AddCouseToTeacher")
+    @RequestMapping("/toGroup")
+    public String toGroup(){ return "view/GroupTable"; }
+    @RequestMapping("/AddCourseToTeacher")
     public String toAddCourse(int userid){
         this.setUserid(userid);
         return "view/add/addCourse";
+    }
+    @RequestMapping("/AddCourseToGroup")
+    public String AddCourseToGroup(int groupid){
+        this.setGroupid(groupid);
+        return "view/add/addCourseToGroup";
     }
 }

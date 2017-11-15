@@ -63,8 +63,8 @@ public class UserAction {
         userService.save(user);
     }
 
-    @RequestMapping("/addCouseToTeacher")
-    public Boolean addCouseToTeacher(TblTeacherClassKey course){
+    @RequestMapping("/addCourseToTeacher")
+    public Boolean addCourseToTeacher(TblTeacherClassKey course){
         userService.addCouseToTeacher(course);
         return true;
     }
