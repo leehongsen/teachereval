@@ -53,7 +53,6 @@ public class GroupAction {
         }
     }
 
-
     @RequestMapping("/delete")
     public int delete(int groupid){ groupService.delete(groupid);return groupid;}
 
