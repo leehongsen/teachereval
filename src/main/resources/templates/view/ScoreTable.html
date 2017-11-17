@@ -6,13 +6,14 @@
         showToolbar: true,
         toolbarItem: 'all',
         local: 'local',
-        dataUrl: host+'/score/getList',
+        dataUrl: host+'/user/getTeacherInfo',
         columns: [
             {
                 name: 'scoid',
                 label: '分数id',
                 align: 'center',
-                width: 70
+                width: 70,
+                hide:true
             },
             {
                 name: 'username',

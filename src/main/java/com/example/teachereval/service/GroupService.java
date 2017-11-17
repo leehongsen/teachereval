@@ -16,28 +16,22 @@ import java.util.Map;
 
 @Component
 @Service("groupService")
-public class GroupService implements IService<TblGroup> {
+public class GroupService {
     @Autowired
     private TblGroupMapper groupMapper;
     @Autowired
     private TblCourseMapper courseMapper;
 
-    @Override
-    public Integer save(TblGroup tblGroup) {
-        return groupMapper.insertSelective(tblGroup);
-    }
+    
+    public Integer save(TblGroup tblGroup) { return groupMapper.insertSelective(tblGroup); }
 
-    @Override
-    public Integer delete(int ids) {
-        return groupMapper.deleteByPrimaryKey(ids);
-    }
+    
+    public Integer delete(int ids) { return groupMapper.deleteByPrimaryKey(ids); }
 
-    @Override
-    public Integer update(TblGroup tblGroup) {
-        return groupMapper.updateByPrimaryKeySelective(tblGroup);
-    }
+    
+    public Integer update(TblGroup tblGroup) { return groupMapper.updateByPrimaryKeySelective(tblGroup); }
 
-    @Override
+    
     public List<TblGroup> getList(Map<?, ?> m) {
         TblGroupExample example=new TblGroupExample();
         return groupMapper.selectByExample(example);
@@ -71,13 +65,16 @@ public class GroupService implements IService<TblGroup> {
         return r;
     }
 
-    @Override
-    public Integer getTotal(Object obj) {
-        return null;
+    
+    public TblGroup getTotal() {
+        TblGroupExample example=new TblGroupExample();
+        example.setOrderByClause("groupid");
+        List<TblGroup> list=groupMapper.selectByExample(example);
+        int i=list.size()-1;
+        return list.get(i);
     }
 
-    @Override
-    public Object getRecord(TblGroup tblGroup) {
-        return null;
-    }
+    
+    public Object getRecord(TblGroup tblGroup) { return null; }
+
 }

@@ -145,6 +145,9 @@ public class UserService implements IService<TblUser> {
     public List<TblTeacherInfo> getTeacherInfo(TblTeacherInfo info){
         TblTeacherInfoExample example=new TblTeacherInfoExample();
         TblTeacherInfoExample.Criteria criteria=example.createCriteria();
+        if(null!=info.getGroupid()){
+            criteria.andGroupidEqualTo(info.getGroupid());
+        }
         if(null!=info.getClaid()){
             criteria.andClaidEqualTo(info.getClaid());
         }
@@ -152,5 +155,14 @@ public class UserService implements IService<TblUser> {
             criteria.andUseridEqualTo(info.getUserid());
         }
         return tblTeacherInfoMapper.selectByExample(example);
+    }
+
+    public TblUserInfo getClassInfo(TblUserInfo userInfo){
+        TblUserInfoExample example=new TblUserInfoExample();
+        TblUserInfoExample.Criteria criteria=example.createCriteria();
+        if(null!=userInfo.getUsername()&&userInfo.getUsername()!=""){
+            criteria.andUsernameEqualTo(userInfo.getUsername());
+        }
+        return userInfoMapper.selectByExample(example).get(0);
     }
 }

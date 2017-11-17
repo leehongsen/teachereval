@@ -1,9 +1,6 @@
 package com.example.teachereval.controller;
 
-import com.example.teachereval.pojo.MenuJson;
-import com.example.teachereval.pojo.TblMenu;
-import com.example.teachereval.pojo.TblUser;
-import com.example.teachereval.pojo.TblUserInfo;
+import com.example.teachereval.pojo.*;
 import com.example.teachereval.service.MenuService;
 import com.example.teachereval.service.UserService;
 import com.example.teachereval.util.Encrypt;
@@ -59,9 +56,9 @@ public class HomeAction {
     }
 
     /*确认用户*/
-    @RequestMapping("/docheck")
+    @RequestMapping("/getInfo")
     @ResponseBody
-    public Map<String,String> doCheck(HttpSession session){
+    public Map<String,String> getInfo(HttpSession session){
         TblUser u=(TblUser)session.getAttribute("userinfo");
         List<TblUserInfo> list=userService.getUserInfo(u.getUserid());
         String role="";
@@ -108,7 +105,8 @@ public class HomeAction {
     }
 
     /*注册用户名是否可用，false表示已经被注册*/
-    @RequestMapping("/doCheck")  @ResponseBody
+    @RequestMapping("/doCheck")
+    @ResponseBody
     public boolean check(String username){
         TblUser user=userService.selectByUsername(username);
         if(null!=user&&user.getUsername()!=null){
@@ -213,6 +211,12 @@ public class HomeAction {
         return childList;
     }
 
+    /*根据用户名获取用户信息*/
+    @RequestMapping("/getClassInfo")
+    @ResponseBody
+    public TblUserInfo getClassInfo(TblUserInfo info){
+        return userService.getClassInfo(info);
+    }
     //控制跳转
     @RequestMapping("/toMenu")
     public String toMenu(){ return "view/MenuTable";}
@@ -230,6 +234,8 @@ public class HomeAction {
     public String toExercise(){ return "view/ExerciseTable"; }
     @RequestMapping("/toGroup")
     public String toGroup(){ return "view/GroupTable"; }
+    @RequestMapping("/toEval")
+    public String toEval(){ return "view/EvalTable"; }
     @RequestMapping("/AddCourseToTeacher")
     public String toAddCourse(int userid){
         this.setUserid(userid);

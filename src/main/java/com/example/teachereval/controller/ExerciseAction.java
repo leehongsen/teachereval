@@ -2,9 +2,10 @@ package com.example.teachereval.controller;
 
 import com.example.teachereval.pojo.Bar;
 import com.example.teachereval.pojo.Exercise;
+import com.example.teachereval.util.Constant;
+import com.example.teachereval.util.ScoreStatistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,5 +25,14 @@ public class ExerciseAction {
         }else{
             return bar.getRoleList().get(3);
         }
+    }
+
+    @RequestMapping("/setScore")
+    public void setScore(int claid,int userid,int teacherid,double score){
+        ScoreStatistics scoreStatistics=new ScoreStatistics();
+        scoreStatistics.setScore(score);
+        scoreStatistics.setClaid(claid);
+        scoreStatistics.setTeacherid(teacherid);
+        Constant.Statistics.put(userid,scoreStatistics);
     }
 }

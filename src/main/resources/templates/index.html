@@ -116,7 +116,7 @@
             });
 
             $.ajax({
-                url:host+'/docheck',
+                url:host+'/getInfo',
                 async:false,
                 success:function (json) {
                     $("#username").text("账号："+json.username);

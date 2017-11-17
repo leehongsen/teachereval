@@ -77,4 +77,10 @@ public class GroupAction {
         }
         return true;
     }
+
+    @RequestMapping("/getOne")
+    public TblGroup getOne(){
+        Map<String,Object> map = new HashMap<>();
+        return groupService.getTotal();
+    }
 }

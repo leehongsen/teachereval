@@ -6,7 +6,7 @@ package com.example.teachereval.util;
 public class ScoreStatistics {
     private int teacherid;
     private int claid;
-    private int score;
+    private double score;
 
     public int getTeacherid() {
         return teacherid;
@@ -24,11 +24,11 @@ public class ScoreStatistics {
         this.claid = claid;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 }

@@ -1,0 +1,112 @@
+<script>
+    var host=getContextPath();
+    var url=host+'/user/getTeacherInfo?groupid=';
+    $.ajax({
+        url:host+'/group/getOne',
+        async:false,
+        success:function (data) {
+            url+=data.groupid;
+        }
+    });
+    var rolename=$("#rolename").text();
+    var username=$("#username").text();
+    if(rolename.indexOf("学生") > 0 )
+    {
+        getClass();
+    }
+    function getClass() {
+        $.ajax({
+            url:host+'/getClassInfo?username='+username,
+            async:false,
+            success:function (data) {
+                url+='&claid='+data.claid;
+            }
+        });
+    }
+    $('#eval_datagrid').datagrid({
+        height: '100%',
+        gridTitle : '评教课程列表',
+        showToolbar: true,
+        local: 'local',
+        dataUrl: url,
+        columns: [
+            {
+                name: 'userid',
+                label: '用户id',
+                align: 'center',
+                width: 70,
+                hide:true
+            },
+            {
+                name: 'username',
+                label: '用户名',
+                align: 'center',
+                width:300
+            },
+            {
+                name: 'couid',
+                label: '课程id',
+                align: 'center',
+                width:300,
+                hide:true
+            },{
+                name: 'couName',
+                label: '课程名称',
+                align: 'center',
+                width:300
+            },
+            {
+                name: 'claName',
+                label: '班级',
+                align: 'center',
+                width:80
+            },
+            {
+                name: 'claid',
+                label: '班级id',
+                align: 'center',
+                width:80,
+                hide:true
+            },
+            {
+                name: 'couSem',
+                label: '学期',
+                align: 'center',
+                width:80
+            },
+            {
+                name: 'groupid',
+                label: '批次id',
+                align: 'center',
+                width:80,
+                hide:true
+            },
+            {
+                label:'操作',
+                render:function (value, data) {
+                    var html="";
+                    console.log(data);
+                        html += '<button type="button" class="btn-green" data-icon="user-circle" '+
+                            ' onclick="doEval('
+                            + data.bjui_local_index + ')">参与评教</button>';
+                    return html;
+                }
+            }
+        ],
+        paging: {pageSize:50, pageCurrent:10},
+        linenumberAll: true,
+        /*tableWidth:'100%',*/
+        noremove: false
+    })
+</script>
+
+<div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
+    <div class="bs-callout bs-callout-warning">
+        <h4>评教信息</h4>
+        <p>需要评教的信息。</p>
+    </div>
+</div>
+<div class="bjui-pageContent">
+    <table id="eval_datagrid" class="table table-bordered">
+    </table>
+</div>
