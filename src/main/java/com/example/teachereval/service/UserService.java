@@ -161,7 +161,8 @@ public class UserService implements IService<TblUser> {
         TblUserInfoExample example=new TblUserInfoExample();
         TblUserInfoExample.Criteria criteria=example.createCriteria();
         if(null!=userInfo.getUsername()&&userInfo.getUsername()!=""){
-            criteria.andUsernameEqualTo(userInfo.getUsername());
+            String username=userInfo.getUsername().split("账号：")[1];
+            criteria.andUsernameEqualTo(username);
         }
         return userInfoMapper.selectByExample(example).get(0);
     }

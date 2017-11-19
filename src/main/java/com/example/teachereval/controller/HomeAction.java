@@ -24,6 +24,18 @@ public class HomeAction {
     /*主要目的是设置和获取教师的用户id*/
     private int userid;
     private int groupid;
+    private int claid;
+
+    /*获取添加班级的id*/
+    @RequestMapping("getAddClaid")
+    @ResponseBody
+    public int getClaid() {
+        return claid;
+    }
+
+    public void setClaid(int claid) {
+        this.claid = claid;
+    }
 
     /*获取添加课程的教师id*/
     @RequestMapping("getAddUserid")
@@ -67,6 +79,7 @@ public class HomeAction {
                 role+=a.getRoleName()+" ";
             }
         }
+        session.setAttribute("rolename",role);
         Map<String,String> map=new HashMap<>();
         map.put("username",u.getUsername());
         map.put("rolename",role);
@@ -245,5 +258,11 @@ public class HomeAction {
     public String AddCourseToGroup(int groupid){
         this.setGroupid(groupid);
         return "view/add/addCourseToGroup";
+    }
+    @RequestMapping("/eval")
+    public String eval(int userid,int claid){
+        this.setUserid(userid);
+        this.setClaid(claid);
+        return "view/add/eval";
     }
 }

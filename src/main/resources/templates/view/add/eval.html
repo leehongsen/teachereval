@@ -1,0 +1,76 @@
+<script>
+    var host=getContextPath();
+    $.get("getAddUserid",function (json) {
+        $("#userid").val(json);
+    });
+    $.get("getAddClaid",function (json) {
+        $("#claid").val(json);
+    });
+    $.ajax({
+        url:host+'/exercise/getOne',
+        async:false,
+        success:function(data){
+            console.log(data);
+            var html='';
+            $.each(data.answerList,function (i,e) {
+                html+='<label class=\"row-label\">'+e.name+'</label>'+
+                    '<div class=\"row-input\">' +
+                    '<select name=\"getList\" data-toggle=\"selectpicker\" data-width=\"300\"' +
+                    ' id=\"a'+i+'" score="'+data.exerciseList[i].value+'\">\n' +
+                    '<option value=\"0\">--------------请选择--------------</option>\n' +
+                    '<option value=\"A\">'+e.A+'</option>'+
+                    '<option value=\"B\">'+e.B+'</option>'+
+                    '<option value=\"C\">'+e.C+'</option>'+
+                    '<option value=\"D\">'+e.D+'</option>'+
+                    '</select></div>';
+            });
+            $("#imp").append(html);
+        }
+    });
+    
+    function doExerciseAdd() {
+        var list = [];
+        $('select[name=getList]').each(function(){
+            list.push($(this).val());
+        });
+        console.log(list);
+        var userid=$("#userid").val();
+        var claid=$("#claid").val();
+        $.ajax({
+            url:host+'/exercise/AddScoreStatistics',
+            data:{
+                userid:userid,
+                claid:claid,
+                test:list
+            },
+            type: "POST",
+            success:function (data) {
+                if(data){
+                    BJUI.dialog('close', 'eval');
+                    $("#doEvalBtn").html("已评教！！");
+                    return true;
+                }
+            }
+        });
+    }
+</script>
+
+<div class="bjui-pageContent">
+    <div class="bjui-row col-1" id="imp">
+        <label class="row-label"></label>
+        <div class="row-input">
+            <input type="hidden" id="userid">
+        </div>
+        <label class="row-label"></label>
+        <div class="row-input">
+            <input type="hidden" id="claid">
+        </div>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="button" class="btn-default" onclick="doExerciseAdd();"
+                    data-icon="save">保存</button></li>
+    </ul>
+</div>

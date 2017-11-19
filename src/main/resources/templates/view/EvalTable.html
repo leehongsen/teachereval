@@ -10,6 +10,7 @@
     });
     var rolename=$("#rolename").text();
     var username=$("#username").text();
+    $("#getP").text(rolename.split("角色: ")[1]+username.split("账号：")[1]+"参与评教");
     if(rolename.indexOf("学生") > 0 )
     {
         getClass();
@@ -87,7 +88,7 @@
                     var html="";
                     console.log(data);
                         html += '<button type="button" class="btn-green" data-icon="user-circle" '+
-                            ' onclick="doEval('
+                            ' id="doEvalBtn" onclick="doEval('
                             + data.bjui_local_index + ')">参与评教</button>';
                     return html;
                 }
@@ -97,13 +98,25 @@
         linenumberAll: true,
         /*tableWidth:'100%',*/
         noremove: false
-    })
+    });
+
+    function doEval(data) {
+        $('#eval_datagrid').datagrid('selectedRows',data,true);
+        var data=$('#eval_datagrid').data('selectedDatas');
+        BJUI.dialog({
+            id:'eval',
+            url:host+'/eval?userid='+data[0].userid+'&claid='+data[0].claid,
+            title:data[0].claName+'班评教',
+            width:800,
+            height:600
+        })
+    }
 </script>
 
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">
         <h4>评教信息</h4>
-        <p>需要评教的信息。</p>
+        <p id="getP">需要评教的信息。</p>
     </div>
 </div>
 <div class="bjui-pageContent">
