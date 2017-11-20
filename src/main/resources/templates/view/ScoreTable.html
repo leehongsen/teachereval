@@ -2,11 +2,10 @@
     var host=getContextPath();
     $('#score_datagrid').datagrid({
         height: '100%',
-        gridTitle : '分数管理',
+        gridTitle : '查看成绩信息',
         showToolbar: true,
-        toolbarItem: 'all',
         local: 'local',
-        dataUrl: host+'/user/getTeacherInfo',
+        dataUrl: host+'/score/getList',
         columns: [
             {
                 name: 'scoid',
@@ -25,7 +24,8 @@
                 name: 'userid',
                 label: '用户id',
                 align: 'center',
-                width:300
+                width:300,
+                hide:true
             },
             {
                 name: 'claName',
@@ -37,7 +37,8 @@
                 name: 'claid',
                 label: '班级id',
                 align: 'center',
-                width:80
+                width:80,
+                hide:true
             },
             {
                 name: 'couName',
@@ -52,21 +53,18 @@
                 width:80
             }
         ],
-        editUrl: host+'/score/editScore',
-        addLocation:'last',
+
         paging: {pageSize:50, pageCurrent:10},
         linenumberAll: true,
         /*tableWidth:'100%',*/
-        noremove: false,
-        delUrl: host+'/score/delete',
-        delPK:'scoid',
-        delConfirm:'是否删除该用户？'
+        noremove: false
+
     })
 </script>
 <div class="bjui-pageHeader" style="background-color:#fff; border-bottom:none;">
     <div class="bs-callout bs-callout-warning">
-        <h4>分数信息</h4>
-        <p>满屏的分数信息。</p>
+        <h4>查看得分情况</h4>
+        <p>该批次中各教师的得分情况如下。</p>
     </div>
 </div>
 <div class="bjui-pageContent">

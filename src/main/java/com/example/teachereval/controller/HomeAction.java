@@ -1,19 +1,23 @@
 package com.example.teachereval.controller;
 
 import com.example.teachereval.pojo.*;
+import com.example.teachereval.service.GroupService;
 import com.example.teachereval.service.MenuService;
+import com.example.teachereval.service.ScoreService;
 import com.example.teachereval.service.UserService;
-import com.example.teachereval.util.Encrypt;
+import com.example.teachereval.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class HomeAction {
@@ -21,6 +25,10 @@ public class HomeAction {
     private UserService userService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private ScoreService scoreService;
     /*主要目的是设置和获取教师的用户id*/
     private int userid;
     private int groupid;
@@ -65,6 +73,13 @@ public class HomeAction {
             return "index";
         }
         return "404";
+    }
+
+    @RequestMapping("/logOut")
+    public String logOut(HttpServletRequest request){
+        request.getSession().removeAttribute("userinfo");
+        request.getSession().removeAttribute("rolename");
+        return "login";
     }
 
     /*确认用户*/
@@ -239,8 +254,6 @@ public class HomeAction {
     public String toRole(){ return "view/RoleTable";}
     @RequestMapping("/toCourse")
     public String toCourse(){ return "view/CourseTable";}
-    @RequestMapping("/toScore")
-    public String toScore(){ return "view/ScoreTable";}
     @RequestMapping("/toClass")
     public String toClass(){ return "view/ClassTable";}
     @RequestMapping("/toExercise")
@@ -249,6 +262,50 @@ public class HomeAction {
     public String toGroup(){ return "view/GroupTable"; }
     @RequestMapping("/toEval")
     public String toEval(){ return "view/EvalTable"; }
+    @RequestMapping("/toScore")
+    public String toScore(){
+        long l=0;
+        String endTime=groupService.getTotal().getEndTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d;
+        Date now=new Date();
+        try {
+            d = sdf.parse(endTime);
+            l =now.getTime() - d.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(l>0){
+            if(null!= Constant.Statistics&&Constant.Statistics.size()>0){
+                Map<ScoreFlag,Double> target=new HashMap<>();
+                List<ScoreStatistics> scoreList=new ArrayList<>();
+                List<ScoreStatistics> list=new ArrayList<>();
+                for (Map.Entry<Integer,ScoreStatistics> entry : Constant.Statistics.entrySet()) {
+                    ScoreFlag sf=new ScoreFlag(entry.getValue().getTeacherid(),entry.getValue().getClaid());
+                    target.put(sf, (double) 0);
+                    scoreList.add(entry.getValue());
+                }
+                for(Map.Entry<ScoreFlag,Double> entry2 : target.entrySet()){
+                    double time=0;              //次数
+                    double total=0;             //总计
+                    for(ScoreStatistics ss:scoreList){
+                        ScoreFlag sf=new ScoreFlag(ss.getTeacherid(),ss.getClaid());
+                        if(entry2.getKey().equals(sf)){
+                            time++;
+                            total+=ss.getScore();
+                        }
+                    }
+                    TblScore gold=new TblScore();
+                    gold.setScoid(entry2.getKey().getTeacherid());
+                    gold.setClaid(entry2.getKey().getClaid());
+                    gold.setScore(total/time);
+                    scoreService.save(gold);
+                }
+            }
+            return "view/ScoreTable";
+        }
+        return "view/TooEarly";
+    }
     @RequestMapping("/AddCourseToTeacher")
     public String toAddCourse(int userid){
         this.setUserid(userid);

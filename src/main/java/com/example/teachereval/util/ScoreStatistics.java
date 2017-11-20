@@ -28,7 +28,7 @@ public class ScoreStatistics {
         return score;
     }
 
-    public void setScore(double score) {
+    public void setScore(double  score) {
         this.score = score;
     }
 }
