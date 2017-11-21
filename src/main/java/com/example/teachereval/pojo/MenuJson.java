@@ -8,7 +8,7 @@ public class MenuJson {
     private String name;
     private List<MenuJson> children;
     private String url;
-    private static String target="navtab";
+    private String target="navtab";
 
     public MenuJson(){
 
@@ -65,7 +65,7 @@ public class MenuJson {
         return target;
     }
 
-    public void setTarget(String target) {
-        this.target = target;
+    public void setTarget() {
+        this.target = "_blank";
     }
 }

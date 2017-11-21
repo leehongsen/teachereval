@@ -262,9 +262,11 @@ public class HomeAction {
     public String toGroup(){ return "view/GroupTable"; }
     @RequestMapping("/toEval")
     public String toEval(){ return "view/EvalTable"; }
+    @RequestMapping("/roleMenu")
+    public String roleMenu(){ return "view/add/RoleMenu";}
     @RequestMapping("/toScore")
     public String toScore(){
-        long l=0;
+        long l=0;           //计算当前时间是否到达批次规定的时间，大于0到达，否则还没到达
         String endTime=groupService.getTotal().getEndTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date d;
@@ -276,10 +278,10 @@ public class HomeAction {
             e.printStackTrace();
         }
         if(l>0){
+            //判断是否提交到score分数表中，没提交则执行提交
             if(null!= Constant.Statistics&&Constant.Statistics.size()>0){
                 Map<ScoreFlag,Double> target=new HashMap<>();
                 List<ScoreStatistics> scoreList=new ArrayList<>();
-                List<ScoreStatistics> list=new ArrayList<>();
                 for (Map.Entry<Integer,ScoreStatistics> entry : Constant.Statistics.entrySet()) {
                     ScoreFlag sf=new ScoreFlag(entry.getValue().getTeacherid(),entry.getValue().getClaid());
                     target.put(sf, (double) 0);

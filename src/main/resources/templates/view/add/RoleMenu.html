@@ -1,0 +1,29 @@
+<script>
+    var host=getContextPath();
+    $.ajax({
+        url:host+'/role/getAllMenu?item=sda',
+        async:false,
+        success:function (json) {
+            var a=JSON.stringify(json);
+            console.log(a);
+            $('#ztreeNewMenu').attr('data-nodes',a);
+        }
+    });
+
+    function save() {
+        console.log("OK");
+        BJUI.dialog('close', 'test_dialog4');
+        return true;
+    }
+</script>
+<div class="bjui-pageContent" id="getToInput">
+    <ul id="ztreeNewMenu" class="ztree" data-toggle="ztree" data-expand-all="true"
+         data-check-enable="true" data-on-check data-on-click="S_NodeClick"></ul>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="button" class="btn-default" onclick="save();"
+                    data-icon="save">保存</button></li>
+    </ul>
+</div>

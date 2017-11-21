@@ -1,40 +1,14 @@
 <script type="text/javascript">
     var host=getContextPath();
-    function datagrid_tree_operation() {
-        var html = '<button type="button" class="btn-green" data-toggle="edit.datagrid.tr">编辑</button>'
-            + '<button type="button" class="btn-red" data-toggle="del.datagrid.tr">删除</button>'
-            +'<button type="button" class="btn-blue" onclick="dialog_role();">赋予权限</button>'
-        return html
-    }
-    function dialog_role() {
+    function dialog_role(data) {
+        $('#role_datagrid').datagrid('selectedRows',data,true);
         var roleid=$("#role_datagrid").data('selectedDatas')[0].roleid;
         var roleName=$("#role_datagrid").data('selectedDatas')[0].roleName;
-        var ztree="";
-        $.ajax({
-            url:host+'/role/getAllMenu',
-            async:false,
-            success:function (json) {
-                var a=JSON.stringify(json);
-                ztree+="<div class=\"bjui-pageContent\">" +
-                    "<ul id=\'ztree-Menu\' class=\'ztree\' data-toggle=\'ztree\' " +
-                    "data-nodes=\'"+a+"\' data-check-enable=\'true\' data-on-check=\'docheck(event, treeId, treeNode)\'></ul></div>\n"+
-                    "<div class=\"bjui-pageFooter\"><ul>\n" +
-                    "<li><button type=\"button\" onclick=\"saveFun();\" class=\"btn-blue\" data-icon=\"hand-o-right \">确定</button></li>\n"+
-                    "    </ul></div>\n";
-
-            }
-        });
-        console.log(ztree);
         BJUI.dialog({
             id:'test_dialog4',
-            html:ztree,
+            url:host+'/roleMenu',
             title:'设置功能'
         })
-    }
-    function saveFun() {
-        console.log("OK");
-        BJUI.dialog('close', 'test_dialog4');
-        return true;
     }
     function docheck(event, treeId, treeNode) {
         console.log("OK");
@@ -76,7 +50,13 @@
             },
             {
                 label:'操作',
-                render:datagrid_tree_operation
+                render:function(value,data){
+                    var html = '<button type="button" class="btn-green" data-toggle="edit.datagrid.tr">编辑</button>'
+                        + '<button type="button" class="btn-red" data-toggle="del.datagrid.tr">删除</button>'
+                        +'<button type="button" class="btn-blue" ' +
+                        'onclick="dialog_role('+data.bjui_local_index+');">赋予权限</button>';
+                    return html;
+                }
             }
         ],
         editUrl: host+'/role/editRole',

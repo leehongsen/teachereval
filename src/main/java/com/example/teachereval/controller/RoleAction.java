@@ -29,9 +29,8 @@ public class RoleAction {
     }
 
     @RequestMapping("/getAllMenu")
-    public List<MenuJson> getAllMenu(){
+    public List<MenuJson> getAllMenu(String item){
         List<TblMenu> list= menuService.getList(new HashMap<String,Object>());
-
         // 最后的结果
         List<MenuJson> menuList = new ArrayList<MenuJson>();
         // 先找到所有的一级菜单
@@ -40,13 +39,21 @@ public class RoleAction {
             if (list.get(i).getParMen()==0) {
                 MenuJson mj=new MenuJson(list.get(i).getMenid(),list.get(i).getParMen(),
                         list.get(i).getMenName(),list.get(i).getMenUrl());
+                if(null!=item&&item!=""){
+                    mj.setTarget();
+                }
                 menuList.add(mj);
             }
         }
 
         // 为一级菜单设置子菜单，getChild是递归调用的
         for (MenuJson menu : menuList) {
-            menu.setChildren(getChild(menu.getId(), list));
+            if(null!=item&&item!=""){
+                menu.setChildren(getChild(menu.getId(),list,true));
+            }else{
+                menu.setChildren(getChild(menu.getId(),list,false));
+            }
+
         }
         return menuList;
     }
@@ -57,7 +64,7 @@ public class RoleAction {
      * @param rootMenu
      * @return
      */
-    private List<MenuJson> getChild(String id, List<TblMenu> rootMenu) {
+    private List<MenuJson> getChild(String id, List<TblMenu> rootMenu,boolean item) {
         // 子菜单
         List<MenuJson> childList = new ArrayList<>();
         for (TblMenu menu : rootMenu) {
@@ -65,6 +72,9 @@ public class RoleAction {
             if (menu.getParMen()==Integer.valueOf(id.split("m")[1])) {
                 MenuJson mj=new MenuJson(menu.getMenid(),menu.getParMen(),
                         menu.getMenName(),menu.getMenUrl());
+                if(item){
+                    mj.setTarget();
+                }
                 childList.add(mj);
             }
         }
@@ -73,7 +83,7 @@ public class RoleAction {
             // 把子菜单的子菜单再循环一遍
             for (MenuJson jsonMenu : childList) {// 没有url子菜单还有子菜单
                 // 递归
-                jsonMenu.setChildren(getChild(jsonMenu.getId(), rootMenu));
+                jsonMenu.setChildren(getChild(jsonMenu.getId(), rootMenu,item));
             }
         }else{
             return null;
